@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+import com.company.Engines.Engine;
 import com.company.Engines.EngineTypes.Electric;
 import com.company.Engines.EngineTypes.Hybrid;
 import com.company.Engines.EngineTypes.Ice;
@@ -51,7 +52,7 @@ public class Race {
     }
 
 
-    private Car createPlayer () {
+    private Player createPlayer () {
         Player newPlayer = new Player();
         System.out.println("Please enter first player name");
         String name = scan.nextLine();
@@ -60,6 +61,7 @@ public class Race {
         System.out.println("Please enter the car you are driving");
         System.out.println("What's the car Engine type? (Electric, Hybrid, Ice");
         String engineType = scan.nextLine();
+        Engine playerEngine = engineChoice(engineType);
 
         System.out.println("What's the car make?");
         String carMake = scan.nextLine();
@@ -76,25 +78,40 @@ public class Race {
         System.out.println("What's the car max speed?");
         int carMaxSpeed = scan.nextInt();
 
-        switch(engineType) {
-            case "Electric":
-                Car electricCar = new Car(new Electric(), carMake, carModel, carYear, carColor, carMaxSpeed);
-                return electricCar;
-
-            case "Hybrid":
-                Car hybridCar = new Car(new Hybrid(), carMake, carModel, carYear, carColor, carMaxSpeed);
-                return hybridCar;
-
-            case "Ice":
-                Car iceCar = new Car(new Ice(), carMake, carModel, carYear, carColor, carMaxSpeed);
-                return iceCar;
-
-            default:
-                System.out.println("Car not valid");
-                return createPlayer();
-        }
+        newPlayer.setCar(carChoice(playerEngine, carMake, carModel, carYear,
+                carColor, carMaxSpeed));
 
         return newPlayer;
+    }
+
+    public Engine engineChoice(String engineType) {
+        Engine choice = null;
+        switch (engineType) {
+            case "Electric":
+                choice = new Electric();
+                break;
+
+            case "Hybrid":
+                choice = new Hybrid();
+                break;
+
+            case "Ice":
+                choice = new Ice();
+                break;
+
+            default:
+                System.out.println("Engine choice not valid, try again");
+                break;
+        }
+        return choice;
+    }
+
+
+    public Car carChoice(Engine playerEngine, String carMake, String carModel,
+                         int carYear, String carColor, int carMaxSpeed) {
+        Car carChoice = new Car(playerEngine, carMake, carModel, carYear,
+                carColor, carMaxSpeed);
+        return carChoice;
     }
 
     public void drag() {
