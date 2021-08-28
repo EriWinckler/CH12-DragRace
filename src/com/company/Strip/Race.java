@@ -30,14 +30,15 @@ public class Race {
     //pass counter
     private int pass = 0;
 
-    public Race() {
+    public void startGame() {
         System.out.println("Welcome to Eri's World Stars Drag Race.");
         System.out.println("This is a car race, not that race you found in Google!");
-        createPlayer();
-
+        System.out.println("Please enter first player name");
+        players.add(createPlayer());
+        
 
         System.out.println("Please enter second player name");
-        createPlayer();
+        players.add(createPlayer());
 
         System.out.println("What's the size of the strip in meters?");
         int laneSize = scan.nextInt();
@@ -54,12 +55,12 @@ public class Race {
 
     private Player createPlayer () {
         Player newPlayer = new Player();
-        System.out.println("Please enter first player name");
+
         String name = scan.nextLine();
         newPlayer.setName(name);
 
         System.out.println("Please enter the car you are driving");
-        System.out.println("What's the car Engine type? (Electric, Hybrid, Ice");
+        System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
         String engineType = scan.nextLine();
         Engine playerEngine = engineChoice(engineType);
 
@@ -70,16 +71,16 @@ public class Race {
         String carModel = scan.nextLine();
 
         System.out.println("What's the car year?");
-        int carYear = scan.nextInt();
+        int carYear = Integer.parseInt(scan.nextLine());
 
         System.out.println("What's the car color?");
         String carColor = scan.nextLine();
 
         System.out.println("What's the car max speed?");
-        int carMaxSpeed = scan.nextInt();
+        int carMaxSpeed = Integer.parseInt(scan.nextLine());
 
-        newPlayer.setCar(carChoice(playerEngine, carMake, carModel, carYear,
-                carColor, carMaxSpeed));
+        newPlayer.setCar(playerEngine, carMake, carModel, carYear,
+                carColor, carMaxSpeed);
 
         return newPlayer;
     }
@@ -104,14 +105,6 @@ public class Race {
                 break;
         }
         return choice;
-    }
-
-
-    public Car carChoice(Engine playerEngine, String carMake, String carModel,
-                         int carYear, String carColor, int carMaxSpeed) {
-        Car carChoice = new Car(playerEngine, carMake, carModel, carYear,
-                carColor, carMaxSpeed);
-        return carChoice;
     }
 
     public void drag() {
@@ -151,6 +144,8 @@ public class Race {
     }
 
     public void playerAction(String choice) {
-
+        if(choice == "1") {
+            currentPlayer.increaseSpeed();
+        }
     }
 }

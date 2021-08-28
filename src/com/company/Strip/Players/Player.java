@@ -11,9 +11,14 @@ public class Player {
     private String name;
     private Engine engineChoice;
 
+    private int currentSpeed = 0;
+
+
     Ice ice = new Ice();
     Electric electric = new Electric();
     Hybrid hybrid = new Hybrid();
+
+    private Car carChoice;
 
     public String getName() {
         return name;
@@ -33,5 +38,17 @@ public class Player {
         }
     }
 
-    public void setCar()
+    public void setCar(Engine playerEngine, String carMake, String carModel,
+                      int carYear, String carColor, int carMaxSpeed) {
+         Car carChoice = new Car(playerEngine, carMake, carModel, carYear,
+                carColor, carMaxSpeed);
+        this.carChoice = carChoice;
+    }
+    public void setCurrentSpeed() {
+        accelerationRate = accelerationDef(engine);
+        currentSpeed = currentSpeed + accelerationRate;
+    }
+    public void increaseSpeed() {
+        currentSpeed = carChoice.defAcceleration(carChoice.) + currentSpeed;
+    }
 }

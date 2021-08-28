@@ -9,19 +9,32 @@ public class Car extends Vehicle {
     private boolean isOn;
     private int maxSpeed;
     private int currentSpeed = 0;
+    private int accelerationRate;
+    private Engine engine;
 
     public Car(Engine engine, String make, String model, int year, String color, int maxSpeed) {
         super(make, model, year, color);
         this.maxSpeed = maxSpeed;
+        this.engine = engine;
+    }
+
+    public int defAcceleration(Engine engine) {
+        if(engine.isElectric()) {
+            return accelerationRate = 10;
+        } else if (engine.isHybrid()) {
+            return accelerationRate = 7;
+        } else {
+            return accelerationRate = 5;
+        }
     }
 
     public int getCurrentSpeed() {
         return currentSpeed;
     }
 
-    public void setCurrentSpeed(int accelerationRate) {
-        currentSpeed = currentSpeed + accelerationRate;
-    }
+    public int getAccelerationRate() { return accelerationRate; }
+
+
 
     @Override
     public void startStop() {
@@ -33,8 +46,6 @@ public class Car extends Vehicle {
             isOn = true;
         }
     }
-
-
 
     @Override
     public void printInfo() {
