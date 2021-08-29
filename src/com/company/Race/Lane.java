@@ -1,4 +1,4 @@
-package com.company.Strip;
+package com.company.Race;
 
 public class Lane {
 

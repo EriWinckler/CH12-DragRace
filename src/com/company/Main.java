@@ -1,13 +1,12 @@
 package com.company;
 
-import com.company.Strip.Race;
+import com.company.Race.Race;
 
 public class Main {
 
     public static void main(String[] args) {
+	    Race game = new Race();
 
-        Race race = new Race();
-
-        race.startGame();
+	    game.startGame();
     }
 }

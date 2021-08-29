@@ -1,4 +1,4 @@
-package com.company.Vehicles;
+package com.company.Vehicle;
 
 public abstract class Vehicle {
     private String make;
@@ -13,10 +13,6 @@ public abstract class Vehicle {
         this.year = year;
         this.color = color;
     }
-
-    public abstract void startStop();
-
-    public abstract void printInfo();
 
     public String getMake() {
         return make;
@@ -33,5 +29,4 @@ public abstract class Vehicle {
     public String getColor() {
         return color;
     }
-
 }

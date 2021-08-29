@@ -1,16 +1,9 @@
-package com.company.Strip;
+package com.company.Race;
+
+import com.company.Player.Player;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
-import com.company.Engines.Engine;
-import com.company.Engines.EngineTypes.Electric;
-import com.company.Engines.EngineTypes.Hybrid;
-import com.company.Engines.EngineTypes.Ice;
-import com.company.Strip.Players.Player;
-import com.company.Vehicles.VehicleTypes.Car;
-
 
 public class Race {
 
@@ -19,7 +12,6 @@ public class Race {
 
     Player currentPlayer = new Player();
 
-    private String choice;
 
     //Initializing players array
     public ArrayList<Player> players = new ArrayList<>();
@@ -30,12 +22,13 @@ public class Race {
     //pass counter
     private int pass = 0;
 
+
     public void startGame() {
         System.out.println("Welcome to Eri's World Stars Drag Race.");
         System.out.println("This is a car race, not that race you found in Google!");
         System.out.println("Please enter first player name");
         players.add(createPlayer());
-        
+
 
         System.out.println("Please enter second player name");
         players.add(createPlayer());
@@ -46,23 +39,19 @@ public class Race {
 
         System.out.println("Let the race start!");
 
-        while(gameOn) {
+        while (gameOn) {
             drag();
         }
 
     }
 
-
-    private Player createPlayer () {
+    private Player createPlayer() {
         Player newPlayer = new Player();
 
         String name = scan.nextLine();
         newPlayer.setName(name);
 
         System.out.println("Please enter the car you are driving");
-        System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
-        String engineType = scan.nextLine();
-        Engine playerEngine = engineChoice(engineType);
 
         System.out.println("What's the car make?");
         String carMake = scan.nextLine();
@@ -73,54 +62,40 @@ public class Race {
         System.out.println("What's the car year?");
         int carYear = Integer.parseInt(scan.nextLine());
 
+        System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
+        String engineType = scan.nextLine();
+
         System.out.println("What's the car color?");
         String carColor = scan.nextLine();
 
         System.out.println("What's the car max speed?");
         int carMaxSpeed = Integer.parseInt(scan.nextLine());
 
-        newPlayer.setCar(playerEngine, carMake, carModel, carYear,
+        //creating new player
+        newPlayer.setCar(carMake, carModel, engineType, carYear,
                 carColor, carMaxSpeed);
 
         return newPlayer;
     }
 
-    public Engine engineChoice(String engineType) {
-        Engine choice = null;
-        switch (engineType) {
-            case "Electric":
-                choice = new Electric();
-                break;
-
-            case "Hybrid":
-                choice = new Hybrid();
-                break;
-
-            case "Ice":
-                choice = new Ice();
-                break;
-
-            default:
-                System.out.println("Engine choice not valid, try again");
-                break;
-        }
-        return choice;
-    }
-
     public void drag() {
         pass++;
-        while(gameOn) {
-            for(int i = 0; i < players.size(); i++) {
+        while (gameOn) {
+            for (int i = 0; i < players.size(); i++) {
                 currentPlayer = players.get(i);
-                choice = options();
-                playerAction(choice);
+                options();
+
+                if (currentPlayer.getLocation() >= lane.getLaneSize()) {
+                    System.out.println(currentPlayer.getName() + " Won!! Congratulations little burned rubber head");
+                    gameOn = false;
+                    break;
+                }
             }
         }
     }
 
-    public String options() {
-        System.out.println("It's " + currentPlayer.getName() + "'s turn, " +
-                "these are your options:");
+    public void options() {
+        System.out.println("It's " + currentPlayer.getName() + " turn, these are your options:");
         System.out.println("1 - Accelerate");
         System.out.println("2 - Cruise");
         System.out.println("3 - Brake");
@@ -129,28 +104,21 @@ public class Race {
 
         switch (option) {
             case "1":
-
-                return "1";
+                currentPlayer.acceleration();
+                break;
 
             case "2":
-                return "2";
+                currentPlayer.cruise();
+                break;
 
             case "3":
-                return "3";
+                currentPlayer.breakVehicle();
+                break;
 
             default:
                 System.out.println("Invalid choice, try again");
-                return options();
-        }
-    }
-
-    public void playerAction(String choice) {
-        if(choice == "1") {
-            currentPlayer.increaseSpeed();
-        } else if(choice == "2") {
-            currentPlayer.cruiseSpeed();
-        } else {
-            currentPlayer.decreaseSpeed();
+                options();
         }
     }
 }
+
