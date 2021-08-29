@@ -119,7 +119,8 @@ public class Race {
     }
 
     public String options() {
-        System.out.println("It's " + currentPlayer.getName() + " turn, these are your options:");
+        System.out.println("It's " + currentPlayer.getName() + "'s turn, " +
+                "these are your options:");
         System.out.println("1 - Accelerate");
         System.out.println("2 - Cruise");
         System.out.println("3 - Brake");
@@ -146,6 +147,10 @@ public class Race {
     public void playerAction(String choice) {
         if(choice == "1") {
             currentPlayer.increaseSpeed();
+        } else if(choice == "2") {
+            currentPlayer.cruiseSpeed();
+        } else {
+            currentPlayer.decreaseSpeed();
         }
     }
 }

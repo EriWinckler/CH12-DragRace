@@ -1,12 +1,12 @@
 package com.company.Engines;
 
-public abstract class Engine {
+public class Engine {
     private String type;
     private boolean isOn = false;
     private boolean isIce = false;
     private boolean isElectric = false;
     private boolean isHybrid = false;
-
+    private int accelerationRate = 0;
 
     public void startStop() {
         if(isOn) {
@@ -15,6 +15,16 @@ public abstract class Engine {
         } else {
             System.out.println("Turning engine on");
             isOn = true;
+        }
+    }
+
+    public int setAccelerationRate() {
+        if(isIce) {
+            return accelerationRate = 5;
+        } else if (isElectric) {
+            return accelerationRate = 15;
+        } else {
+            return accelerationRate = 10;
         }
     }
 

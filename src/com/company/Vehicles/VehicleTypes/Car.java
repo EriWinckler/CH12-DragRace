@@ -10,6 +10,8 @@ public class Car extends Vehicle {
     private int maxSpeed;
     private int currentSpeed = 0;
     private int accelerationRate;
+    private int brakingPower;
+
     private Engine engine;
 
     public Car(Engine engine, String make, String model, int year, String color, int maxSpeed) {
@@ -18,13 +20,23 @@ public class Car extends Vehicle {
         this.engine = engine;
     }
 
-    public int defAcceleration(Engine engine) {
+    public int defAcceleration() {
         if(engine.isElectric()) {
             return accelerationRate = 10;
         } else if (engine.isHybrid()) {
             return accelerationRate = 7;
         } else {
             return accelerationRate = 5;
+        }
+    }
+
+    public int defBraking() {
+        if(engine.isElectric()) {
+            return brakingPower = 10;
+        } else if (engine.isHybrid()) {
+            return brakingPower = 7;
+        } else {
+            return brakingPower = 5;
         }
     }
 

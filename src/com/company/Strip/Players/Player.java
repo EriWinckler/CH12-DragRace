@@ -44,11 +44,20 @@ public class Player {
                 carColor, carMaxSpeed);
         this.carChoice = carChoice;
     }
-    public void setCurrentSpeed() {
-        accelerationRate = accelerationDef(engine);
-        currentSpeed = currentSpeed + accelerationRate;
-    }
+
     public void increaseSpeed() {
-        currentSpeed = carChoice.defAcceleration(carChoice.) + currentSpeed;
+        currentSpeed = carChoice.defAcceleration() + currentSpeed;
+        System.out.println("You accelerated!");
+        System.out.println("Your speed is now: " + currentSpeed);
+    }
+
+    public void decreaseSpeed() {
+        currentSpeed = carChoice.defBraking() - currentSpeed;
+        System.out.println("You slowed down!");
+        System.out.println("Your speed is now: " + currentSpeed);
+    }
+
+    public void cruiseSpeed() {
+        System.out.println("Your speed is maintained at: " + currentSpeed);
     }
 }
