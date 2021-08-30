@@ -19,6 +19,9 @@ public class Player {
     //initializing location
     private int location = 0;
 
+    //initializing gas
+    private int gas = 2;
+
     public String getName() {
         return name;
     }
@@ -41,31 +44,43 @@ public class Player {
     }
     
     public void acceleration() {
-        currentSpeed = engineChoice.getAccelerationRate() + currentSpeed;
-        System.out.println("Your speed is " + currentSpeed);
-        
+        if(currentSpeed >= carChoice.getMaxSpeed()) {
+            System.out.println("You reached your car speed limit of " + carChoice.getMaxSpeed());
+            System.out.println("You can only cruise.");
+            cruise();
+        } else {
+            currentSpeed = engineChoice.getAccelerationRate() + currentSpeed;
+            System.out.println(name + " your speed is " + currentSpeed);
+
+            //update gas
+            gasConsume();
+        }
         //update location
         locationUpdate();
     }
     
     public void cruise() {
-        System.out.println("Your speed is kept at " + currentSpeed);
+        System.out.println(name + " is cruising and lost some speed due " +
+                "to drag.");
+        currentSpeed--;
+        System.out.println("Your speed is now: " + currentSpeed);
+
         //update location
         locationUpdate();
     }
     
     public void breakVehicle() {
-        if(currentSpeed == 0) {
-            System.out.println("You are at a stop, can brake more than that.");
-        } else {
             currentSpeed = currentSpeed - carChoice.getBrakingPower();
-            System.out.println("You slowed your speed to " + currentSpeed);
-            
+            System.out.println(name + " slowed your speed to " + currentSpeed);
+
             //update location
             locationUpdate();
-        }
     }
-    
+
+    public void gasConsume() { gas = gas - 2; }
+
+    public void gasRefuel() { gas++; }
+
     public void locationUpdate() {
         location = location + currentSpeed;
         System.out.println("You are " + location + " ahead of the start location.");
@@ -79,6 +94,10 @@ public class Player {
 
     public String setEngineOnOff() { return engineChoice.setStartStop(); }
 
-    public int getLocation() { return location;}
+    public int getLocation() { return location; }
+
+    public int getCurrentSpeed() { return currentSpeed; }
+
+    public int getGas() { return gas; }
 
 }

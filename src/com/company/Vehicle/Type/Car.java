@@ -13,7 +13,8 @@ public class Car extends Vehicle {
         super(make, model, year, color);
         this.maxSpeed = maxSpeed;
     }
-
-
+    
     public int getBrakingPower() { return brakingPower; }
+    
+    public int getMaxSpeed() { return maxSpeed; }
 }

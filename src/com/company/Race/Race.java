@@ -66,7 +66,7 @@ public class Race {
         int carYear = Integer.parseInt(scan.nextLine());
 
         //calling verifier for valid input for the engine type
-        checkerValidInput();
+        checkValidInput();
 
         System.out.println("What's the car color?");
         String carColor = scan.nextLine();
@@ -82,7 +82,7 @@ public class Race {
     }
 
     //checker valid input for engine type
-    public void checkerValidInput() {
+    public void checkValidInput() {
         System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
         String engineType = scan.nextLine();
 
@@ -113,21 +113,25 @@ public class Race {
 
             default:
                 System.out.println("Invalid engine choice, please try again");
-                checkerValidInput();
+                checkValidInput();
                 break;
         }
     }
 
     //Rounds method
     public void drag() {
-        pass++;
+
         while (gameOn) {
+            pass++;
             for (int i = 0; i < players.size(); i++) {
                 currentPlayer = players.get(i);
                 options();
-
+                currentPlayer.gasRefuel();
                 if (currentPlayer.getLocation() >= lane.getLaneSize()) {
-                    System.out.println(currentPlayer.getName() + " Won!! It took " + pass + " turns. " + "Congratulations little burned rubber head");
+                    System.out.println(currentPlayer.getName() + " Won!! It " +
+                            "took " + pass + " turns. Your speed was " + currentPlayer.getCurrentSpeed() + ". " +
+                            "Congratulations little burned rubber head");
+                    getCarInfo();
                     gameOn = false;
                     break;
                 }
@@ -138,17 +142,28 @@ public class Race {
     //Player input method
     public void options() {
         if(!currentPlayer.getEngineStatus()) {
-            System.out.println(currentPlayer.getName() + "Is your car's engine on? " + currentPlayer.getEngineStatus());
+            System.out.println(currentPlayer.getName() + " Is your car's " +
+                    "engine on? " + currentPlayer.getEngineStatus());
             System.out.println("Press any key turn it on/off");
+            scan.nextLine();
             String anyKey = scan.nextLine();
             currentPlayer.setEngineOnOff();
         } else {
-            System.out.println("It's " + currentPlayer.getName() + " turn, these are your options:");
-            System.out.println("1 - Accelerate");
-            System.out.println("2 - Cruise");
-            System.out.println("3 - Brake");
-            System.out.println("What will you do?");
-            String option = scan.nextLine();
+            String option;
+            if(currentPlayer.getGas() == 0) {
+                System.out.println(currentPlayer.getName() + " ran out of gas and can only " +
+                        "cruise for this turn");
+                option = "2";
+            } else {
+                System.out.println("It's " + currentPlayer.getName() + " turn, " + "currently you have " +
+                        currentPlayer.getGas() + " gas left in your tank");
+                System.out.println("These are your options:");
+                System.out.println("1 - Accelerate");
+                System.out.println("2 - Cruise");
+                System.out.println("3 - Brake");
+                System.out.println("What will you do?");
+                option = scan.nextLine();
+            }
 
             switch (option) {
                 case "1":
@@ -168,6 +183,14 @@ public class Race {
                     options();
             }
         }
+    }
+
+    public void getCarInfo() {
+        System.out.println("The winners car:");
+        System.out.println("Car make: " + currentPlayer.getCarChoice().getMake());
+        System.out.println("Model: " + currentPlayer.getCarChoice().getModel());
+        System.out.println("Year:" + currentPlayer.getCarChoice().getYear() + " Color: " + currentPlayer.getCarChoice().getColor());
+        System.out.println("Max speed: " + currentPlayer.getCarChoice().getMaxSpeed());
     }
 }
 
