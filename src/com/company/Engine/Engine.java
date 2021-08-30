@@ -3,6 +3,7 @@ package com.company.Engine;
 public class Engine {
     private String type;
 
+    //Checker is vehicle is on/off
     private boolean isOn = false;
 
     //Type of engine selector
@@ -14,7 +15,7 @@ public class Engine {
     private int accelerationRate;
 
 
-    public void startStop() {
+    public String setStartStop() {
         if(isOn) {
             System.out.println("Turning engine off");
             isOn = false;
@@ -22,6 +23,7 @@ public class Engine {
             System.out.println("Turning engine on");
             isOn = true;
         }
+        return null;
     }
 
     public void defineEngineType(String engineType) {
@@ -29,14 +31,17 @@ public class Engine {
             case "Hybrid":
                 isHybrid = true;
                 accelerationRate = 7;
+                break;
 
             case "Electric":
                 isElectric = true;
                 accelerationRate = 10;
+                break;
 
             case "Ice":
                 isIce = true;
                 accelerationRate = 5;
+                break;
 
             default:
                 System.out.println("Invalid engine choice, please try again.");
@@ -48,4 +53,6 @@ public class Engine {
     }
 
     public int getAccelerationRate() { return accelerationRate; }
+
+    public boolean getIsOn() { return isOn; }
 }

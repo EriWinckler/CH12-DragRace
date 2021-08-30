@@ -22,6 +22,8 @@ public class Race {
     //pass counter
     private int pass = 0;
 
+    private String checkedEngineType = "";
+
 
     public void startGame() {
         System.out.println("Welcome to Eri's World Stars Drag Race.");
@@ -45,6 +47,7 @@ public class Race {
 
     }
 
+    //Player creator method
     private Player createPlayer() {
         Player newPlayer = new Player();
 
@@ -62,8 +65,8 @@ public class Race {
         System.out.println("What's the car year?");
         int carYear = Integer.parseInt(scan.nextLine());
 
-        System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
-        String engineType = scan.nextLine();
+        //calling verifier for valid input for the engine type
+        checkerValidInput();
 
         System.out.println("What's the car color?");
         String carColor = scan.nextLine();
@@ -72,12 +75,50 @@ public class Race {
         int carMaxSpeed = Integer.parseInt(scan.nextLine());
 
         //creating new player
-        newPlayer.setCar(carMake, carModel, engineType, carYear,
+        newPlayer.setCar(carMake, carModel, checkedEngineType, carYear,
                 carColor, carMaxSpeed);
 
         return newPlayer;
     }
 
+    //checker valid input for engine type
+    public void checkerValidInput() {
+        System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
+        String engineType = scan.nextLine();
+
+        switch (engineType) {
+            case "Electric":
+                checkedEngineType = "Electric";
+                break;
+
+            case "electric":
+                checkedEngineType = "Electric";
+                break;
+
+            case "Hybrid":
+                checkedEngineType = "Hybrid";
+                break;
+
+            case "hybrid":
+                checkedEngineType = "Hybrid";
+                break;
+
+            case "Ice":
+                checkedEngineType = "Ice";
+                break;
+
+            case "ice":
+                checkedEngineType = "Ice";
+                break;
+
+            default:
+                System.out.println("Invalid engine choice, please try again");
+                checkerValidInput();
+                break;
+        }
+    }
+
+    //Rounds method
     public void drag() {
         pass++;
         while (gameOn) {
@@ -86,7 +127,7 @@ public class Race {
                 options();
 
                 if (currentPlayer.getLocation() >= lane.getLaneSize()) {
-                    System.out.println(currentPlayer.getName() + " Won!! Congratulations little burned rubber head");
+                    System.out.println(currentPlayer.getName() + " Won!! It took " + pass + " turns. " + "Congratulations little burned rubber head");
                     gameOn = false;
                     break;
                 }
@@ -94,30 +135,38 @@ public class Race {
         }
     }
 
+    //Player input method
     public void options() {
-        System.out.println("It's " + currentPlayer.getName() + " turn, these are your options:");
-        System.out.println("1 - Accelerate");
-        System.out.println("2 - Cruise");
-        System.out.println("3 - Brake");
-        System.out.println("What will you do?");
-        String option = scan.nextLine();
+        if(!currentPlayer.getEngineStatus()) {
+            System.out.println(currentPlayer.getName() + "Is your car's engine on? " + currentPlayer.getEngineStatus());
+            System.out.println("Press any key turn it on/off");
+            String anyKey = scan.nextLine();
+            currentPlayer.setEngineOnOff();
+        } else {
+            System.out.println("It's " + currentPlayer.getName() + " turn, these are your options:");
+            System.out.println("1 - Accelerate");
+            System.out.println("2 - Cruise");
+            System.out.println("3 - Brake");
+            System.out.println("What will you do?");
+            String option = scan.nextLine();
 
-        switch (option) {
-            case "1":
-                currentPlayer.acceleration();
-                break;
+            switch (option) {
+                case "1":
+                    currentPlayer.acceleration();
+                    break;
 
-            case "2":
-                currentPlayer.cruise();
-                break;
+                case "2":
+                    currentPlayer.cruise();
+                    break;
 
-            case "3":
-                currentPlayer.breakVehicle();
-                break;
+                case "3":
+                    currentPlayer.breakVehicle();
+                    break;
 
-            default:
-                System.out.println("Invalid choice, try again");
-                options();
+                default:
+                    System.out.println("Invalid choice, try again");
+                    options();
+            }
         }
     }
 }

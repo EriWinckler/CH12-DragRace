@@ -59,6 +59,7 @@ public class Player {
             System.out.println("You are at a stop, can brake more than that.");
         } else {
             currentSpeed = currentSpeed - carChoice.getBrakingPower();
+            System.out.println("You slowed your speed to " + currentSpeed);
             
             //update location
             locationUpdate();
@@ -73,7 +74,11 @@ public class Player {
     public Car getCarChoice() {
         return carChoice;
     }
-    
+
+    public boolean getEngineStatus() { return engineChoice.getIsOn(); }
+
+    public String setEngineOnOff() { return engineChoice.setStartStop(); }
+
     public int getLocation() { return location;}
 
 }
