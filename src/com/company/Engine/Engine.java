@@ -1,18 +1,13 @@
 package com.company.Engine;
 
-public class Engine {
-    private String type;
+public abstract class Engine {
 
     //Checker is vehicle is on/off
     private boolean isOn = false;
 
-    //Type of engine selector
-    private boolean isIce = false;
-    private boolean isElectric = false;
-    private boolean isHybrid = false;
-
-    //Rate of acceleration varies as per type of engine
-    private int accelerationRate;
+    public Engine(boolean isOn) {
+        this.isOn = isOn;
+    }
 
 
     public String setStartStop() {
@@ -26,33 +21,7 @@ public class Engine {
         return null;
     }
 
-    public void defineEngineType(String engineType) {
-        switch (engineType) {
-            case "Hybrid":
-                isHybrid = true;
-                accelerationRate = 7;
-                break;
-
-            case "Electric":
-                isElectric = true;
-                accelerationRate = 10;
-                break;
-
-            case "Ice":
-                isIce = true;
-                accelerationRate = 5;
-                break;
-
-            default:
-                System.out.println("Invalid engine choice, please try again.");
-                return;
-        }
-    }
-    public String getType() {
-        return type;
-    }
-
-    public int getAccelerationRate() { return accelerationRate; }
+    public abstract int  getAccelerationRate();
 
     public boolean getIsOn() { return isOn; }
 }

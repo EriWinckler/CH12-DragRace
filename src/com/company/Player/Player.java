@@ -1,6 +1,9 @@
 package com.company.Player;
 
 import com.company.Engine.Engine;
+import com.company.Engine.Type.Electric;
+import com.company.Engine.Type.Hybrid;
+import com.company.Engine.Type.Ice;
 import com.company.Vehicle.Type.Car;
 
 public class Player {
@@ -10,8 +13,9 @@ public class Player {
 
     //initializing Vehicle variables
     private Car carChoice;
-    private Engine engineChoice = new Engine();
     private String engineType;
+    Engine engineChoice = null;
+
 
     //initializing speed variable
     private int currentSpeed = 0;
@@ -39,8 +43,25 @@ public class Player {
         setEngine(engineType);
     }
     
-    public void setEngine(String engineType) {
-        engineChoice.defineEngineType(engineType);
+    public Engine setEngine(String engineType) {
+        switch(engineType) {
+            case "Electric":
+                engineChoice = new Electric(false);
+                break;
+
+            case "Hybrid":
+                engineChoice = new Hybrid(false);
+                break;
+
+            case "Ice":
+                engineChoice = new Ice(false);
+                break;
+
+            default:
+                System.out.println("Invalid engine choice, please try again!");
+                break;
+        }
+        return engineChoice;
     }
     
     public void acceleration() {

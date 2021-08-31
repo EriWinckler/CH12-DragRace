@@ -184,7 +184,7 @@ public class Race {
     }
 
     public void getCarInfo() {
-        System.out.println("The winners car:");
+        System.out.println("The winner's car:");
         System.out.println("Car make: " + currentPlayer.getCarChoice().getMake());
         System.out.println("Model: " + currentPlayer.getCarChoice().getModel());
         System.out.println("Year:" + currentPlayer.getCarChoice().getYear() + " Color: " + currentPlayer.getCarChoice().getColor());
