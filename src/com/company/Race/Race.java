@@ -66,7 +66,7 @@ public class Race {
         int carYear = Integer.parseInt(scan.nextLine());
 
         //calling verifier for valid input for the engine type
-        checkValidInput();
+        checkEngineValidInput();
 
         System.out.println("What's the car color?");
         String carColor = scan.nextLine();
@@ -82,7 +82,7 @@ public class Race {
     }
 
     //checker valid input for engine type
-    public void checkValidInput() {
+    public void checkEngineValidInput() {
         System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
         String engineType = scan.nextLine();
 
@@ -113,14 +113,13 @@ public class Race {
 
             default:
                 System.out.println("Invalid engine choice, please try again");
-                checkValidInput();
+                checkEngineValidInput();
                 break;
         }
     }
 
     //Rounds method
     public void drag() {
-
         while (gameOn) {
             pass++;
             for (int i = 0; i < players.size(); i++) {
@@ -145,8 +144,7 @@ public class Race {
             System.out.println(currentPlayer.getName() + " Is your car's " +
                     "engine on? " + currentPlayer.getEngineStatus());
             System.out.println("Press any key turn it on/off");
-            scan.nextLine();
-            String anyKey = scan.nextLine();
+            String anyKey = scan.next();
             currentPlayer.setEngineOnOff();
         } else {
             String option;

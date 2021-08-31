@@ -70,11 +70,16 @@ public class Player {
     }
     
     public void breakVehicle() {
+        if(currentSpeed >= 0) {
+            System.out.println("You are stopped");
+            System.out.println("You are " + location + " ahead of the start location.");
+        } else {
             currentSpeed = currentSpeed - carChoice.getBrakingPower();
             System.out.println(name + " slowed your speed to " + currentSpeed);
 
             //update location
             locationUpdate();
+        }
     }
 
     public void gasConsume() { gas = gas - 2; }
