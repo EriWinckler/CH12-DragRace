@@ -111,6 +111,10 @@ public class Player {
         location = location + currentSpeed;
         System.out.println("You are " + location + " ahead of the start location.");
     }
+
+    public void resetLocation() {
+        location = 0;
+    }
     
     public Car getCarChoice() {
         return carChoice;

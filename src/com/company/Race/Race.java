@@ -18,6 +18,10 @@ public class Race {
 
     //checker for game active
     private boolean gameOn = true;
+    private boolean isSuicidal = true;
+
+    //Initializing Wall Of Doom counter
+    private int wallOfDoom;
 
     //pass counter
     private int pass = 0;
@@ -44,7 +48,6 @@ public class Race {
         while (gameOn) {
             drag();
         }
-
     }
 
     //Player creator method
@@ -85,26 +88,15 @@ public class Race {
     public void checkEngineValidInput() {
         System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
         String engineType = scan.nextLine();
+        engineType.toLowerCase();
 
         switch (engineType) {
-            case "Electric":
-                checkedEngineType = "Electric";
-                break;
-
             case "electric":
                 checkedEngineType = "Electric";
                 break;
 
-            case "Hybrid":
-                checkedEngineType = "Hybrid";
-                break;
-
             case "hybrid":
                 checkedEngineType = "Hybrid";
-                break;
-
-            case "Ice":
-                checkedEngineType = "Ice";
                 break;
 
             case "ice":
@@ -130,8 +122,9 @@ public class Race {
                     System.out.println(currentPlayer.getName() + " Won!! It " +
                             "took " + pass + " turns. Your speed was " + currentPlayer.getCurrentSpeed() + ". " +
                             "Congratulations little burned rubber head");
-                    getCarInfo();
+                    //getCarInfo();
                     gameOn = false;
+                    wallOfDoom(currentPlayer);
                     break;
                 }
             }
@@ -149,9 +142,12 @@ public class Race {
         } else {
             String option;
             if(currentPlayer.getGas() == 0) {
-                System.out.println(currentPlayer.getName() + " ran out of gas and can only " +
-                        "cruise for this turn");
-                option = "2";
+                System.out.println(currentPlayer.getName() + " ran out of gas");
+                System.out.println("These are your options:");
+                System.out.println("2 - Cruise");
+                System.out.println("3 - Brake");
+                System.out.println("What will you do?");
+                option = scan.nextLine();
             } else {
                 System.out.println("It's " + currentPlayer.getName() + " turn, " + "currently you have " +
                         currentPlayer.getGas() + " gas left in your tank");
@@ -189,6 +185,36 @@ public class Race {
         System.out.println("Model: " + currentPlayer.getCarChoice().getModel());
         System.out.println("Year:" + currentPlayer.getCarChoice().getYear() + " Color: " + currentPlayer.getCarChoice().getColor());
         System.out.println("Max speed: " + currentPlayer.getCarChoice().getMaxSpeed());
+    }
+
+    public void wallOfDoom(Player currentPlayer) {
+        wallOfDoom = (int) (lane.getLaneSize() * 0.4);
+        currentPlayer.resetLocation();
+
+        System.out.println("Let's see if you are a REAL KAMIKAZE!");
+        System.out.println("The KAMIKAZE wall is " + wallOfDoom + " in front " +
+                "of you");
+
+
+        while(isSuicidal) {
+            System.out.println(currentPlayer.getName() + " you are driving at" +
+                    " " + currentPlayer.getCurrentSpeed());
+            System.out.println("The KAMIKAZE wall is " + wallOfDoom + " in " +
+                    "front of you");
+
+            if(currentPlayer.getLocation() >= wallOfDoom) {
+                System.out.println("YOU HIT THE WALL AND COMPLETED YOUR " +
+                        "KAMIKAZE MISSION!");
+                return;
+            } else if(currentPlayer.getCurrentSpeed() == 0) {
+                System.out.println("Congratulations you stopped before " +
+                        "hitting the wall");
+                return;
+            } else {
+                options();
+            }
+
+        }
     }
 }
 
