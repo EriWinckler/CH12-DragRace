@@ -74,8 +74,8 @@ public class Race {
         System.out.println("What's the car color?");
         String carColor = scan.nextLine();
 
-        System.out.println("What's the car max speed?");
-        int carMaxSpeed = Integer.parseInt(scan.nextLine());
+       //calling checker for valid max speed value
+        int carMaxSpeed = checkMaxSpeed();
 
         //creating new player
         newPlayer.setCar(carMake, carModel, checkedEngineType, carYear,
@@ -87,8 +87,7 @@ public class Race {
     //checker valid input for engine type
     public void checkEngineValidInput() {
         System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
-        String engineType = scan.nextLine();
-        engineType.toLowerCase();
+        String engineType = scan.nextLine().toLowerCase();
 
         switch (engineType) {
             case "electric":
@@ -108,6 +107,20 @@ public class Race {
                 checkEngineValidInput();
                 break;
         }
+    }
+
+    //checker for valid max speed input
+    public int checkMaxSpeed() {
+        System.out.println("What's the car max speed?");
+        int maxSpeed = Integer.parseInt(scan.nextLine());
+
+        if(maxSpeed > 300) {
+            System.out.println("Invalid max speed, don't lie, your car cannot" +
+                    " go that fast!");
+            System.out.println("Setting car max speed to 300");
+            return maxSpeed = 300;
+        }
+        return maxSpeed;
     }
 
     //Rounds method
@@ -137,7 +150,7 @@ public class Race {
             System.out.println(currentPlayer.getName() + " Is your car's " +
                     "engine on? " + currentPlayer.getEngineStatus());
             System.out.println("Press any key turn it on/off");
-            String anyKey = scan.next();
+            String anyKey = scan.nextLine();
             currentPlayer.setEngineOnOff();
         } else {
             String option;
@@ -199,7 +212,8 @@ public class Race {
         while(isSuicidal) {
             System.out.println(currentPlayer.getName() + " you are driving at" +
                     " " + currentPlayer.getCurrentSpeed());
-            System.out.println("The KAMIKAZE wall is " + wallOfDoom + " in " +
+            System.out.println("The KAMIKAZE wall is " + (wallOfDoom + currentPlayer.getLocation()) +
+                    " in " +
                     "front of you");
 
             if(currentPlayer.getLocation() >= wallOfDoom) {

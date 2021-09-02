@@ -95,7 +95,7 @@ public class Player {
             System.out.println("You are stopped");
             System.out.println("You are " + location + " ahead of the start location.");
         } else {
-            currentSpeed = currentSpeed - carChoice.getBrakingPower();
+            currentSpeed -= carChoice.getBrakingPower();
             System.out.println(name + " slowed your speed to " + currentSpeed);
 
             //update location
@@ -108,8 +108,7 @@ public class Player {
     public void gasRefuel() { gas++; }
 
     public void locationUpdate() {
-        location = location + currentSpeed;
-        System.out.println("You are " + location + " ahead of the start location.");
+        location += currentSpeed;
     }
 
     public void resetLocation() {
