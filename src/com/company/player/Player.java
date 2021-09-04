@@ -1,10 +1,10 @@
-package com.company.Player;
+package com.company.player;
 
-import com.company.Engine.Engine;
-import com.company.Engine.Type.Electric;
-import com.company.Engine.Type.Hybrid;
-import com.company.Engine.Type.Ice;
-import com.company.Vehicle.Type.Car;
+import com.company.engine.Engine;
+import com.company.engine.type.Electric;
+import com.company.engine.type.Hybrid;
+import com.company.engine.type.Ice;
+import com.company.vehicle.type.Car;
 
 public class Player {
 

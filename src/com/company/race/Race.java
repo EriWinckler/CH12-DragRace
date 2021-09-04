@@ -1,6 +1,6 @@
-package com.company.Race;
+package com.company.race;
 
-import com.company.Player.Player;
+import com.company.player.Player;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,16 +12,12 @@ public class Race {
 
     Player currentPlayer = new Player();
 
-
     //Initializing players array
     public ArrayList<Player> players = new ArrayList<>();
 
-    //checker for game active
+    //checker for game active and mode
     private boolean gameOn = true;
-    private boolean isSuicidal = true;
-
-    //Initializing Wall Of Doom counter
-    private int wallOfDoom;
+    private boolean kamikazeWall = false;
 
     //pass counter
     private int pass = 0;
@@ -40,8 +36,13 @@ public class Race {
         players.add(createPlayer());
 
         System.out.println("What's the size of the strip in meters?");
-        int laneSize = scan.nextInt();
+        int laneSize = Integer.parseInt(scan.nextLine());
         lane.setLaneSize(laneSize);
+
+        //checker for Kamikaze mode
+        System.out.println("Would you like to play KAMIKAZE mode?");
+        String kamikaze = scan.nextLine().toLowerCase();
+        setKamikaze(kamikaze);
 
         System.out.println("Let the race start!");
 
@@ -123,6 +124,16 @@ public class Race {
         return maxSpeed;
     }
 
+    public void setKamikaze(String kamikaze) {
+        switch (kamikaze) {
+            case "yes" -> {
+                kamikazeWall = true;
+                System.out.println("\nKamikaze Mode is ON!\n");
+            }
+            default -> kamikazeWall = false;
+        }
+    }
+
     //Rounds method
     public void drag() {
         while (gameOn) {
@@ -137,7 +148,11 @@ public class Race {
                             "Congratulations little burned rubber head");
                     //getCarInfo();
                     gameOn = false;
-                    wallOfDoom(currentPlayer);
+                    if(kamikazeWall) {
+                        Wall wall = new Wall(currentPlayer, lane, true);
+                        return;
+                    }
+
                     break;
                 }
             }
@@ -198,37 +213,6 @@ public class Race {
         System.out.println("Model: " + currentPlayer.getCarChoice().getModel());
         System.out.println("Year:" + currentPlayer.getCarChoice().getYear() + " Color: " + currentPlayer.getCarChoice().getColor());
         System.out.println("Max speed: " + currentPlayer.getCarChoice().getMaxSpeed());
-    }
-
-    public void wallOfDoom(Player currentPlayer) {
-        wallOfDoom = (int) (lane.getLaneSize() * 0.4);
-        currentPlayer.resetLocation();
-
-        System.out.println("Let's see if you are a REAL KAMIKAZE!");
-        System.out.println("The KAMIKAZE wall is " + wallOfDoom + " in front " +
-                "of you");
-
-
-        while(isSuicidal) {
-            System.out.println(currentPlayer.getName() + " you are driving at" +
-                    " " + currentPlayer.getCurrentSpeed());
-            System.out.println("The KAMIKAZE wall is " + (wallOfDoom + currentPlayer.getLocation()) +
-                    " in " +
-                    "front of you");
-
-            if(currentPlayer.getLocation() >= wallOfDoom) {
-                System.out.println("YOU HIT THE WALL AND COMPLETED YOUR " +
-                        "KAMIKAZE MISSION!");
-                return;
-            } else if(currentPlayer.getCurrentSpeed() == 0) {
-                System.out.println("Congratulations you stopped before " +
-                        "hitting the wall");
-                return;
-            } else {
-                options();
-            }
-
-        }
     }
 }
 

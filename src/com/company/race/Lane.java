@@ -1,4 +1,4 @@
-package com.company.Race;
+package com.company.race;
 
 public class Lane {
 

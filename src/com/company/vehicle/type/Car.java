@@ -1,8 +1,6 @@
-package com.company.Vehicle.Type;
+package com.company.vehicle.type;
 
-import com.company.Engine.Engine;
-
-import com.company.Vehicle.Vehicle;
+import com.company.vehicle.Vehicle;
 
 public class Car extends Vehicle {
 

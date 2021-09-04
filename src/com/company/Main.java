@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.Race.Race;
+import com.company.race.Race;
 
 public class Main {
 
