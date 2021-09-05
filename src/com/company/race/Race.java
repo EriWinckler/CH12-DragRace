@@ -10,6 +10,7 @@ public class Race {
     Scanner scan = new Scanner(System.in);
     Lane lane = new Lane();
 
+
     Player currentPlayer = new Player();
 
     //Initializing players array
@@ -21,6 +22,8 @@ public class Race {
 
     //pass counter
     private int pass = 0;
+
+
     private int wallOfDoom, laneSize, carYear, maxSpeed;
 
     private String checkedEngineType = "";
@@ -60,7 +63,7 @@ public class Race {
     }
 
     //Player creator method
-    private Player createPlayer() {
+    public Player createPlayer() {
         Player newPlayer = new Player();
 
         String name = scan.nextLine();
@@ -168,10 +171,9 @@ public class Race {
                     //getCarInfo();
                     gameOn = false;
                     if(kamikazeWall) {
-                        Wall(currentPlayer, lane, true);
+                        wall(currentPlayer, lane, true);
                         return;
                     }
-
                     break;
                 }
             }
@@ -243,7 +245,7 @@ public class Race {
         }
     }
 
-    public void Wall(Player currentPlayer, Lane lane, boolean kamikaze) {
+    public void wall(Player currentPlayer, Lane lane, boolean kamikaze) {
         wallOfDoom = (int) (lane.getLaneSize() * 0.4);
         currentPlayer.resetLocation();
 

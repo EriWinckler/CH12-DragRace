@@ -5,7 +5,7 @@ import com.company.player.Player;
 
 public class Wall {
 
-    //Wall distance
+    //wall distance
 
 
     Race race = new Race();
