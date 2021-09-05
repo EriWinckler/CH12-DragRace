@@ -1,6 +1,6 @@
-package com.company.Race;
+package com.company.race;
 
-import com.company.Player.Player;
+import com.company.player.Player;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,26 +12,23 @@ public class Race {
 
     Player currentPlayer = new Player();
 
-
     //Initializing players array
     public ArrayList<Player> players = new ArrayList<>();
 
-    //checker for game active
+    //checker for game active and mode
     private boolean gameOn = true;
-    private boolean isSuicidal = true;
-
-    //Initializing Wall Of Doom counter
-    private int wallOfDoom;
+    private boolean kamikazeWall = false;
 
     //pass counter
     private int pass = 0;
+    private int wallOfDoom, laneSize, carYear, maxSpeed;
 
     private String checkedEngineType = "";
 
 
     public void startGame() {
-        System.out.println("Welcome to Eri's World Stars Drag Race.");
-        System.out.println("This is a car race, not that race you found in Google!");
+        System.out.println("Welcome to Eri's World Stars Drag Race.\n");
+        System.out.println("This is a car race, not that race you found in Google!\n");
         System.out.println("Please enter first player name");
         players.add(createPlayer());
 
@@ -40,10 +37,22 @@ public class Race {
         players.add(createPlayer());
 
         System.out.println("What's the size of the strip in meters?");
-        int laneSize = scan.nextInt();
+        String input = (scan.nextLine());
+
+        try {
+            int laneSize = Integer.parseInt(input);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
         lane.setLaneSize(laneSize);
 
-        System.out.println("Let the race start!");
+        //checker for Kamikaze mode
+        System.out.println("Would you like to play KAMIKAZE mode? Yes or No");
+        String kamikaze = scan.nextLine().toLowerCase();
+        setKamikaze(kamikaze);
+
+        System.out.println("Let the race start!\n");
 
         while (gameOn) {
             drag();
@@ -66,7 +75,13 @@ public class Race {
         String carModel = scan.nextLine();
 
         System.out.println("What's the car year?");
-        int carYear = Integer.parseInt(scan.nextLine());
+        String input = (scan.nextLine());
+
+        try {
+            int carYear = Integer.parseInt(input);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         //calling verifier for valid input for the engine type
         checkEngineValidInput();
@@ -112,7 +127,12 @@ public class Race {
     //checker for valid max speed input
     public int checkMaxSpeed() {
         System.out.println("What's the car max speed?");
-        int maxSpeed = Integer.parseInt(scan.nextLine());
+        String input = scan.nextLine();
+        try {
+            maxSpeed = Integer.parseInt(input);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         if(maxSpeed > 300) {
             System.out.println("Invalid max speed, don't lie, your car cannot" +
@@ -121,6 +141,16 @@ public class Race {
             return maxSpeed = 300;
         }
         return maxSpeed;
+    }
+
+    public void setKamikaze(String kamikaze) {
+        switch (kamikaze) {
+            case "yes" -> {
+                kamikazeWall = true;
+                System.out.println("\nKamikaze Mode is ON!\n");
+            }
+            default -> kamikazeWall = false;
+        }
     }
 
     //Rounds method
@@ -137,7 +167,11 @@ public class Race {
                             "Congratulations little burned rubber head");
                     //getCarInfo();
                     gameOn = false;
-                    wallOfDoom(currentPlayer);
+                    if(kamikazeWall) {
+                        Wall(currentPlayer, lane, true);
+                        return;
+                    }
+
                     break;
                 }
             }
@@ -161,6 +195,21 @@ public class Race {
                 System.out.println("3 - Brake");
                 System.out.println("What will you do?");
                 option = scan.nextLine();
+
+                switch (option) {
+                    case "2":
+                        currentPlayer.cruise();
+                        break;
+
+                    case "3":
+                        currentPlayer.breakVehicle();
+                        break;
+
+                    default:
+                        System.out.println("Invalid choice, try again");
+                        options();
+                }
+
             } else {
                 System.out.println("It's " + currentPlayer.getName() + " turn, " + "currently you have " +
                         currentPlayer.getGas() + " gas left in your tank");
@@ -192,43 +241,47 @@ public class Race {
         }
     }
 
-    public void getCarInfo() {
-        System.out.println("The winner's car:");
-        System.out.println("Car make: " + currentPlayer.getCarChoice().getMake());
-        System.out.println("Model: " + currentPlayer.getCarChoice().getModel());
-        System.out.println("Year:" + currentPlayer.getCarChoice().getYear() + " Color: " + currentPlayer.getCarChoice().getColor());
-        System.out.println("Max speed: " + currentPlayer.getCarChoice().getMaxSpeed());
-    }
-
-    public void wallOfDoom(Player currentPlayer) {
+    public void Wall(Player currentPlayer, Lane lane, boolean kamikaze) {
         wallOfDoom = (int) (lane.getLaneSize() * 0.4);
         currentPlayer.resetLocation();
 
         System.out.println("Let's see if you are a REAL KAMIKAZE!");
         System.out.println("The KAMIKAZE wall is " + wallOfDoom + " in front " +
                 "of you");
+        System.out.println("Are you ready?");
+        String option = scan.nextLine();
 
-
-        while(isSuicidal) {
+        while (kamikaze) {
             System.out.println(currentPlayer.getName() + " you are driving at" +
                     " " + currentPlayer.getCurrentSpeed());
-            System.out.println("The KAMIKAZE wall is " + (wallOfDoom + currentPlayer.getLocation()) +
-                    " in " +
-                    "front of you");
+            System.out.println("The KAMIKAZE wall is " + (wallOfDoom - currentPlayer.getLocation()) +
+                    " in front of you");
 
-            if(currentPlayer.getLocation() >= wallOfDoom) {
+            if (currentPlayer.getLocation() >= wallOfDoom) {
                 System.out.println("YOU HIT THE WALL AND COMPLETED YOUR " +
                         "KAMIKAZE MISSION!");
+                kamikaze = false;
+                getCarInfo();
                 return;
-            } else if(currentPlayer.getCurrentSpeed() == 0) {
+            } else if (currentPlayer.getCurrentSpeed() == 0) {
                 System.out.println("Congratulations you stopped before " +
                         "hitting the wall");
+                kamikaze = false;
+                getCarInfo();
                 return;
             } else {
                 options();
             }
 
         }
+    }
+
+    public void getCarInfo() {
+        System.out.println("The winner's car:");
+        System.out.println("Car make: " + currentPlayer.getCarChoice().getMake());
+        System.out.println("Model: " + currentPlayer.getCarChoice().getModel());
+        System.out.println("Year:" + currentPlayer.getCarChoice().getYear() + " Color: " + currentPlayer.getCarChoice().getColor());
+        System.out.println("Max speed: " + currentPlayer.getCarChoice().getMaxSpeed());
     }
 }
 

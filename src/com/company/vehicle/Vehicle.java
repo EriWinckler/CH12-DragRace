@@ -1,4 +1,4 @@
-package com.company.Vehicle;
+package com.company.vehicle;
 
 public abstract class Vehicle {
     private String make;

@@ -1,6 +1,6 @@
-package com.company.Engine.Type;
+package com.company.engine.type;
 
-import com.company.Engine.Engine;
+import com.company.engine.Engine;
 
 public class Electric extends Engine {
 
