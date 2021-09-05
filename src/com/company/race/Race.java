@@ -219,24 +219,26 @@ public class Race {
                 System.out.println("3 - Brake");
                 System.out.println("What will you do?");
                 option = scan.nextLine();
-            }
 
-            switch (option) {
-                case "1":
-                    currentPlayer.acceleration();
-                    break;
+                switch (option) {
+                    case ("1"):
+                        currentPlayer.acceleration();
+                        break;
 
-                case "2":
-                    currentPlayer.cruise();
-                    break;
+                    case "2":
+                        currentPlayer.cruise();
+                        break;
 
-                case "3":
-                    currentPlayer.breakVehicle();
-                    break;
+                    case "3":
+                        currentPlayer.breakVehicle();
+                        break;
 
-                default:
-                    System.out.println("Invalid choice, try again");
-                    options();
+                    default:
+                        System.out.println("Invalid choice, try again");
+                        options();
+
+                }
+
             }
         }
     }
@@ -272,7 +274,6 @@ public class Race {
             } else {
                 options();
             }
-
         }
     }
 
