@@ -67,7 +67,7 @@ public class Player {
     public void acceleration() {
         if(currentSpeed >= carChoice.getMaxSpeed()) {
             System.out.println("You reached your car speed limit of " + carChoice.getMaxSpeed());
-            System.out.println("You can only cruise.");
+            System.out.println("You are cruising now.");
             cruise();
         } else {
             currentSpeed = engineChoice.getAccelerationRate() + currentSpeed;
@@ -93,7 +93,6 @@ public class Player {
     public void breakVehicle() {
         if(currentSpeed >= 0) {
             System.out.println("You are stopped");
-            System.out.println("You are " + location + " ahead of the start location.");
         } else {
             currentSpeed -= carChoice.getBrakingPower();
             System.out.println(name + " slowed your speed to " + currentSpeed);
