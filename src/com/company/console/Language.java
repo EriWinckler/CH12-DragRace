@@ -1,51 +1,48 @@
 package com.company.console;
 
+import com.company.player.Player;
+
 public interface Language {
     String[] startGame();
-    String playerOne;
-    String playerTwo;
-    String laneSize;
-    String kamikaze;
-    String start;
+    String playerOne();
+    String playerTwo();
+    String laneSize();
+    String kamikaze();
+    String start();
 
     //createPlayer
-    String [] carMake;
-    String carModel;
-    String carYear;
-    String carColor;
+    String [] carMake();
+    String carModel();
+    String carYear();
+    String carColor();
 
     //checkEngineValidInput
-    String typeEngine;
-    String invalidChoice;
+    String typeEngine();
+    String invalidChoice();
 
     //checkMaxSpeed
-    String carMaxSpeed;
-    String [] invalidMax;
+    String carMaxSpeed();
+    String [] invalidMax();
 
     //setKamkikaze
-    String kamikazeOn;
+    String kamikazeOn();
 
     //drag
-    String win;
-    String speed;
-    String congrats;
+    String win(Player currentPlayer, int pass);
+
 
     //options
-    String engineOn;
-    String turnOn;
+    String engineOn(Player currentPlayer);
+    String turnOn();
 
-    String outGas;
-    String[] noGasOptions;
-    String invalidOptions;
-    String gasInfom;
-    String [] gasOptions;
+    String[] outGas(Player currentPlayer);
+    String[] gasInfo(Player currentPlayer);
+
 
     //wall
-    String intro;
-    String wallInfo;
-    String checker;
-    String[] speedInfo;
-    String hitWall;
-    String safe;
+    String[] wallIntro(int wallOfDoom);
+    String[] wallInfo(Player currentPlayer, int wallOfDoom);
+    String hitWall();
+    String safe();
 
 }
