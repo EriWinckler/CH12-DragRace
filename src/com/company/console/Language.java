@@ -1,6 +1,7 @@
 package com.company.console;
 
 import com.company.player.Player;
+import com.company.vehicle.type.Car;
 
 public interface Language {
     String[] startGame();
@@ -44,5 +45,21 @@ public interface Language {
     String[] wallInfo(Player currentPlayer, int wallOfDoom);
     String hitWall();
     String safe();
+
+    //displayCar
+    String[] carInfo(Player currentPlayer);
+
+    //playerFile
+    //acceleration
+    String[] acceleMax(Car carChoice);
+    String acceleration(String name, int currentSpeed);
+
+    //cruise
+    String[] cruise(String name);
+    String cruiseDisplaySpeed(int currentSpeed);
+
+    //brake
+    String stopped();
+    String brake(String name, int currentSpeed);
 
 }

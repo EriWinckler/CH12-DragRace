@@ -2,119 +2,121 @@ package com.company.console.region;
 
 import com.company.console.Language;
 import com.company.player.Player;
+import com.company.vehicle.type.Car;
 
 public class Portuguese implements Language {
 
     @Override
     public String[] startGame() {
         return new String[] {
-                "Welcome to Eri's World Stars Drag Race.\n",
-                "This is a car race, not that race you found in Google!\n"
+
+
+                "Bem vindo a corrida de drag do Eri.\n",
+                "Isso é uma corrida de carros, não aquilo que você achou no Google!\n"
         };
     }
 
     @Override
     public String playerOne() {
-        return "Please enter first player name";
+        return "Por favor entre o nome do primeiro jogador.";
     }
 
     @Override
     public String playerTwo() {
-        return "Please enter second player name";
+        return "Por favor entre o nome do segundo jogador.";
     }
 
     @Override
     public String laneSize() {
-        return "What's the size of the strip?";
+        return "Qual o tamanho da pista?";
     }
 
     @Override
     public String kamikaze() {
-        return "Would you like to play KAMIKAZE mode? Yes or No";
+        return "Você quer jogar o modo KAMIKAZE? Yes ou No";
     }
 
     @Override
     public String start() {
-        return "Let the race start!\n";
+        return "Que começe a corrida!\n";
     }
 
     @Override
     public String[] carMake() {
         return new String[] {
-                "Please enter the car you are driving",
-                "What's the car make?"
+                "Por favor entre o carro que você esta dirigindo.",
+                "Qual é a marca do carro?"
         };
     }
 
     @Override
     public String carModel() {
-        return "What's the car model?";
+        return "Qual é o modelo do carro?";
     }
 
     @Override
     public String carYear() {
-        return "What's the car year?";
+        return "Qual é o ano do carro?";
     }
 
     @Override
     public String carColor() {
-        return "What's the car color?";
+        return "Qual é a cor?";
     }
 
     @Override
     public String typeEngine() {
-        return "What's the car Engine type? (Electric, Hybrid, Ice)";
+        return "Qual é o tipo do motor? (Electric, Hybrid, Ice)";
     }
 
     @Override
     public String invalidChoice() {
-        return "Invalid choice, please try again";
+        return "Escolha invalida, por favor tente novamente.";
     }
 
     @Override
     public String carMaxSpeed() {
-        return "What's the car max speed?";
+        return "Qual é a velocidade máxima do seu carro?";
     }
 
     @Override
     public String[] invalidMax() {
         return new String[] {
-                "Invalid max speed, don't lie, your car cannot go that fast!",
-                "Setting car max speed to 300"
+                "Velocidade máxima invalida, não minta, seu carro não consegue ir tão rápido!",
+                "Ajustando velocidade máxima para 300"
         };
     }
 
     @Override
     public String kamikazeOn() {
-        return "\nKamikaze Mode is ON!\n";
+        return "\nModo Kamikaze LIGADO!\n";
     }
 
     @Override
     public String win(Player currentPlayer, int pass) {
-        return currentPlayer.getName() + " Won!! It " +
-                "took " + pass + " turns. Your speed was " + currentPlayer.getCurrentSpeed() + ". " +
-                "Congratulations little burned rubber head";
+        return currentPlayer.getName() + " Venceu!! Usou " + pass + " turnos. Sua velocidade foi " + currentPlayer.getCurrentSpeed() + ". " +
+                "Parabens cabeça de borracha queimada.";
     }
 
 
     @Override
     public String engineOn(Player currentPlayer) {
-        return currentPlayer.getName() + " Is your car's " + "engine on? " + currentPlayer.getEngineStatus();
+        return currentPlayer.getName() + " O motor do seu carro esta ligado? " + currentPlayer.getEngineStatus();
     }
 
     @Override
     public String turnOn() {
-        return "Press any key turn it on/off";
+        return "Aperte qualquer tecla para ligar ou desligar o carro.";
     }
 
     @Override
     public String[] outGas(Player currentPlayer) {
         return new String[] {
-                currentPlayer.getName() +  "ran out of gas",
-                "These are your options:",
-                "2 - Cruise",
-                "3 - Brake",
-                "What will you do?"
+                currentPlayer.getName() +  "está sem gasolina",
+                "Essas são suas opções:",
+                "2 - Soltar",
+                "3 - Freiar",
+                "O que você vai fazer?"
         };
     }
 
@@ -122,40 +124,81 @@ public class Portuguese implements Language {
     @Override
     public String[] gasInfo(Player currentPlayer) {
         return new String[] {
-                "It's " + currentPlayer.getName() + " turn, " + "currently you have " +
-                        currentPlayer.getGas() + " gas left in your tank",
-                "These are your options:",
-                "1 - Accelerate",
-                "2 - Cruise",
-                "3 - Brake",
-                "What will you do?"
+                "É a vez do " + currentPlayer.getName() + " você tem " +
+                        currentPlayer.getGas() + " de gasolina ainda no tanque.",
+                "Essas são suas opções:",
+                "1 - Acelerar",
+                "2 - Soltar",
+                "3 - Freiar",
+                "O que você vai fazer?"
         };
     }
 
     @Override
     public String[] wallIntro(int wallOfDoom) {
         return new String[] {
-                "Let's see if you are a REAL KAMIKAZE!",
-                "The KAMIKAZE wall is " + wallOfDoom + " in front of you",
-                "Are you ready?"
+                "Vamos ver se você é um verdadeiro KAMIKAZE!",
+                "A muralha KAMIKAZE está a " + wallOfDoom + " na sua frente",
+                "Você esta pronto?"
         };
     }
 
     @Override
     public String[] wallInfo(Player currentPlayer, int wallOfDoom) {
         return new String[] {
-                currentPlayer.getName() + " you are driving at" + " " + currentPlayer.getCurrentSpeed(),
-                "The KAMIKAZE wall is " + (wallOfDoom - currentPlayer.getLocation()) + " in front of you"
+                currentPlayer.getName() + " você esta dirigindo a " + currentPlayer.getCurrentSpeed(),
+                "A muralha KAMIKAZE está a " + (wallOfDoom - currentPlayer.getLocation()) + " na sua frente"
         };
     }
 
     @Override
     public String hitWall() {
-        return "YOU HIT THE WALL AND COMPLETED YOUR KAMIKAZE MISSION!";
+        return "VOCÊ ACERTOU A MURALHA KAMIKAZE E COMPLETOU SUA MISSÃO!";
     }
 
     @Override
     public String safe() {
-        return "Congratulations you stopped before hitting the wall";
+        return "Parabéns você parou antes de acertar a muralha KAMIKAZE.";
+    }
+
+    @Override
+    public String[] carInfo(Player currentPlayer) {
+        return new String[] {
+                "O carro vencedor:",
+                "Marca: " + currentPlayer.getCarChoice().getMake(),
+                "Modelo: " + currentPlayer.getCarChoice().getModel(),
+                "Ano:" + currentPlayer.getCarChoice().getYear() + " Cor: " + currentPlayer.getCarChoice().getColor(),
+                "Velocidade máxima: " + currentPlayer.getCarChoice().getMaxSpeed()
+        };
+    }
+
+    @Override
+    public String[] acceleMax(Car carChoice) {
+        return new String[] {
+                "Você chegou na velocidade máxima de " + carChoice.getMaxSpeed(),
+                "Você está na \"banguela\"."
+        };
+    }
+
+    @Override
+    public String acceleration(String name, int currentSpeed) {
+        return name + " sua velocidade é " + currentSpeed;
+    }
+
+    @Override
+    public String[] cruise(String name) {
+        return new String[] {
+                name + "está na banguela e perdeu um pouco de velocidade devido ao arrasto."
+        };
+    }
+
+    @Override
+    public String stopped() {
+        return "Você está parado.";
+    }
+
+    @Override
+    public String brake(String name, int currentSpeed) {
+        return name + " diminuiu a velocidade para " + currentSpeed;
     }
 }

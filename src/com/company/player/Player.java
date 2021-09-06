@@ -1,5 +1,6 @@
 package com.company.player;
 
+import com.company.console.Language;
 import com.company.engine.Engine;
 import com.company.engine.type.Electric;
 import com.company.engine.type.Hybrid;
@@ -42,7 +43,6 @@ public class Player {
         this.engineType = engineType;
         setEngine(engineType);
     }
-    
     public Engine setEngine(String engineType) {
         switch(engineType) {
             case "Electric":
@@ -56,22 +56,18 @@ public class Player {
             case "Ice":
                 engineChoice = new Ice(false);
                 break;
-
-            default:
-                System.out.println("Invalid engine choice, please try again!");
-                break;
         }
         return engineChoice;
     }
     
-    public void acceleration() {
+    public void acceleration(Language language, Car carChoice) {
         if(currentSpeed >= carChoice.getMaxSpeed()) {
-            System.out.println("You reached your car speed limit of " + carChoice.getMaxSpeed());
-            System.out.println("You are cruising now.");
-            cruise();
+            System.out.println(language.acceleMax(carChoice));
+            cruise(language);
         } else {
             currentSpeed = engineChoice.getAccelerationRate() + currentSpeed;
-            System.out.println(name + " your speed is " + currentSpeed);
+            language.acceleration(name, currentSpeed);
+            //System.out.println(name + " your speed is " + currentSpeed);
 
             //update gas
             gasConsume();
@@ -80,22 +76,23 @@ public class Player {
         locationUpdate();
     }
     
-    public void cruise() {
-        System.out.println(name + " is cruising and lost some speed due " +
-                "to drag.");
+    public void cruise(Language language) {
+        //System.out.println(name + " is cruising and lost some speed due to drag.");
+        System.out.println(language.cruise(name));
         currentSpeed--;
-        System.out.println("Your speed is now: " + currentSpeed);
+        //System.out.println("Your speed is now: " + currentSpeed);
+        System.out.println(language.cruiseDisplaySpeed(currentSpeed));
 
         //update location
         locationUpdate();
     }
     
-    public void breakVehicle() {
+    public void breakVehicle(Language language) {
         if(currentSpeed >= 0) {
-            System.out.println("You are stopped");
+            System.out.println(language.stopped());
         } else {
             currentSpeed -= carChoice.getBrakingPower();
-            System.out.println(name + " slowed your speed to " + currentSpeed);
+            System.out.println(language.brake(name, currentSpeed));
 
             //update location
             locationUpdate();

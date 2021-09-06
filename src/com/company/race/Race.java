@@ -35,47 +35,45 @@ public class Race {
 
 
     private void setLang() {
-        System.out.println("1. English\n2. Português");
-        int choice = scan.nextInt();
+        System.out.println("Welcome, what language would you like? || Bem vindo, que lingua você gostaria?");
+        System.out.println("1. English   2. Português");
+        int choice = Integer.parseInt(scan.nextLine());
         switch (choice) {
-            case 1 -> language = new English();
             case 2 -> language = new Portuguese();
+            default -> language = new English();
         }
     }
 
     public void startGame() {
         setLang();
-        System.out.println(language.startGame());
+        displayString(language.startGame());
 
-        /*System.out.println("Welcome to Eri's World Stars Drag Race.\n");
-        System.out.println("This is a car race, not that race you found in Google!\n");*/
         System.out.println(language.playerOne());
-        players.add(createPlayer());
+        String name = (scan.nextLine());
+        players.add(createPlayer(name));
 
-
-        //System.out.println("Please enter second player name");
         System.out.println(language.playerTwo());
-        players.add(createPlayer());
+        name = (scan.nextLine());
+        players.add(createPlayer(name));
 
-        //System.out.println("What's the size of the strip in meters?");
         System.out.println(language.laneSize());
         String input = (scan.nextLine());
 
         try {
             int laneSize = Integer.parseInt(input);
+            lane.setLaneSize(laneSize);
         } catch (Exception e) {
             System.out.println(e);
+
         }
 
-        lane.setLaneSize(laneSize);
+
 
         //checker for Kamikaze mode
-        //System.out.println("Would you like to play KAMIKAZE mode? Yes or No");
         System.out.println(language.kamikaze());
         String kamikaze = scan.nextLine().toLowerCase();
         setKamikaze(kamikaze);
 
-        //System.out.println("Let the race start!\n");
         language.start();
 
         while (gameOn) {
@@ -83,25 +81,25 @@ public class Race {
         }
     }
 
+    public static void displayString(String[] options) {
+        for(String option : options) {
+            System.out.println(option);
+        }
+    }
+
     //Player creator method
-    public Player createPlayer() {
+    public Player createPlayer(String name) {
         Player newPlayer = new Player();
 
-        String name = scan.nextLine();
         newPlayer.setName(name);
 
-        //System.out.println("Please enter the car you are driving");
-
-        //System.out.println("What's the car make?");
-        language.carMake();
+        displayString(language.carMake());
         String carMake = scan.nextLine();
 
-        //System.out.println("What's the car model?");
-        language.carModel();
+        System.out.println(language.carModel());
         String carModel = scan.nextLine();
 
-        //System.out.println("What's the car year?");
-        language.carYear();
+        System.out.println(language.carYear());
         String input = (scan.nextLine());
 
         try {
@@ -113,8 +111,7 @@ public class Race {
         //calling verifier for valid input for the engine type
         checkEngineValidInput();
 
-        //System.out.println("What's the car color?");
-        language.carColor();
+        System.out.println(language.carColor());
         String carColor = scan.nextLine();
 
        //calling checker for valid max speed value
@@ -129,8 +126,7 @@ public class Race {
 
     //checker valid input for engine type
     public void checkEngineValidInput() {
-        //System.out.println("What's the car Engine type? (Electric, Hybrid, Ice)");
-        language.typeEngine();
+        System.out.println(language.typeEngine());
         String engineType = scan.nextLine().toLowerCase();
 
         switch (engineType) {
@@ -147,8 +143,7 @@ public class Race {
                 break;
 
             default:
-                //System.out.println("Invalid engine choice, please try again");
-                language.invalidChoice();
+                System.out.println(language.invalidChoice());
                 checkEngineValidInput();
                 break;
         }
@@ -156,8 +151,7 @@ public class Race {
 
     //checker for valid max speed input
     public int checkMaxSpeed() {
-        //System.out.println("What's the car max speed?");
-        language.carMaxSpeed();
+        System.out.println(language.carMaxSpeed());
         String input = scan.nextLine();
         try {
             maxSpeed = Integer.parseInt(input);
@@ -166,10 +160,7 @@ public class Race {
         }
 
         if(maxSpeed > 300) {
-            //System.out.println("Invalid max speed, don't lie, your car cannot" +
-            //        " go that fast!");
-            //System.out.println("Setting car max speed to 300");
-            language.invalidMax();
+            displayString(language.invalidMax());
             return maxSpeed = 300;
         }
         return maxSpeed;
@@ -177,10 +168,9 @@ public class Race {
 
     public void setKamikaze(String kamikaze) {
         switch (kamikaze) {
-            case "yes" -> {
+            case ("yes") -> {
                 kamikazeWall = true;
-                //System.out.println("\nKamikaze Mode is ON!\n");
-                language.kamikazeOn();
+                System.out.println(language.kamikazeOn());
             }
             default -> kamikazeWall = false;
         }
@@ -190,21 +180,18 @@ public class Race {
     public void drag() {
         while (gameOn) {
             pass++;
-            for (int i = 0; i < players.size(); i++) {
-                currentPlayer = players.get(i);
+            for (Player player : players) {
+                currentPlayer = player;
                 options();
                 currentPlayer.gasRefuel();
                 if (currentPlayer.getLocation() >= lane.getLaneSize()) {
-                    /*System.out.println(currentPlayer.getName() + " Won!! It " +
-                            "took " + pass + " turns. Your speed was " + currentPlayer.getCurrentSpeed() + ". " +
-                            "Congratulations little burned rubber head");*/
-                    language.win(currentPlayer, pass);
-                    //getCarInfo();
+                    System.out.println(language.win(currentPlayer, pass));
                     gameOn = false;
-                    if(kamikazeWall) {
+                    if (kamikazeWall) {
                         wall(currentPlayer, lane, true);
                         return;
                     }
+                    getCarInfo();
                     break;
                 }
             }
@@ -214,66 +201,46 @@ public class Race {
     //Player input method
     public void options() {
         if(!currentPlayer.getEngineStatus()) {
-            /*System.out.println(currentPlayer.getName() + " Is your car's " +
-                    "engine on? " + currentPlayer.getEngineStatus());
-            System.out.println("Press any key turn it on/off");*/
-            language.engineOn(currentPlayer);
-            language.turnOn();
+            System.out.println(language.engineOn(currentPlayer));
+            System.out.println(language.turnOn());
             String anyKey = scan.nextLine();
             currentPlayer.setEngineOnOff();
         } else {
             String option;
             if(currentPlayer.getGas() == 0) {
-                /*System.out.println(currentPlayer.getName() + " ran out of gas");
-                System.out.println("These are your options:");
-                System.out.println("2 - Cruise");
-                System.out.println("3 - Brake");
-                System.out.println("What will you do?");*/
-                language.outGas(currentPlayer);
+                System.out.println(language.acceleration(currentPlayer.getName(), currentPlayer.getCurrentSpeed()));
+                displayString(language.outGas(currentPlayer));
                 option = scan.nextLine();
 
                 switch (option) {
-                    case "2":
-                        currentPlayer.cruise();
-                        break;
-
-                    case "3":
-                        currentPlayer.breakVehicle();
-                        break;
-
-                    default:
-                        //System.out.println("Invalid choice, try again");
-                        language.invalidChoice();
+                    case "2" -> currentPlayer.cruise(language);
+                    case "3" -> currentPlayer.breakVehicle(language);
+                    default -> {
+                        System.out.println(language.invalidChoice());
                         options();
+                    }
                 }
 
             } else {
-                /*System.out.println("It's " + currentPlayer.getName() + " turn, " + "currently you have " +
-                        currentPlayer.getGas() + " gas left in your tank");
-                System.out.println("These are your options:");
-                System.out.println("1 - Accelerate");
-                System.out.println("2 - Cruise");
-                System.out.println("3 - Brake");
-                System.out.println("What will you do?");*/
-                language.gasInfo(currentPlayer);
+                System.out.println(language.acceleration(currentPlayer.getName(), currentPlayer.getCurrentSpeed()));
+                displayString(language.gasInfo(currentPlayer));
                 option = scan.nextLine();
 
                 switch (option) {
                     case ("1"):
-                        currentPlayer.acceleration();
+                        currentPlayer.acceleration(language, currentPlayer.getCarChoice());
                         break;
 
                     case "2":
-                        currentPlayer.cruise();
+                        currentPlayer.cruise(language);
                         break;
 
                     case "3":
-                        currentPlayer.breakVehicle();
+                        currentPlayer.breakVehicle(language);
                         break;
 
                     default:
-                        //System.out.println("Invalid choice, try again");
-                        language.invalidChoice();
+                        System.out.println(language.invalidChoice());
                         options();
 
                 }
@@ -286,31 +253,19 @@ public class Race {
         wallOfDoom = (int) (lane.getLaneSize() * 0.4);
         currentPlayer.resetLocation();
 
-        /*System.out.println("Let's see if you are a REAL KAMIKAZE!");
-        System.out.println("The KAMIKAZE wall is " + wallOfDoom + " in front " +
-                "of you");
-        System.out.println("Are you ready?");*/
-        language.wallIntro(wallOfDoom);
+        displayString(language.wallIntro(wallOfDoom));
         String option = scan.nextLine();
 
         while (kamikaze) {
-            /*System.out.println(currentPlayer.getName() + " you are driving at" +
-                    " " + currentPlayer.getCurrentSpeed());
-            System.out.println("The KAMIKAZE wall is " + (wallOfDoom - currentPlayer.getLocation()) +
-                    " in front of you");*/
-            language.wallInfo(currentPlayer, wallOfDoom);
+            displayString(language.wallInfo(currentPlayer, wallOfDoom));
 
             if (currentPlayer.getLocation() >= wallOfDoom) {
-                /*System.out.println("YOU HIT THE WALL AND COMPLETED YOUR " +
-                        "KAMIKAZE MISSION!");*/
-                language.hitWall();
+                System.out.println(language.hitWall());
                 kamikaze = false;
                 getCarInfo();
                 return;
             } else if (currentPlayer.getCurrentSpeed() == 0) {
-                /*System.out.println("Congratulations you stopped before " +
-                        "hitting the wall");*/
-                language.safe();
+                System.out.println(language.safe());
                 kamikaze = false;
                 getCarInfo();
                 return;
@@ -321,11 +276,7 @@ public class Race {
     }
 
     public void getCarInfo() {
-        System.out.println("The winner's car:");
-        System.out.println("Car make: " + currentPlayer.getCarChoice().getMake());
-        System.out.println("Model: " + currentPlayer.getCarChoice().getModel());
-        System.out.println("Year:" + currentPlayer.getCarChoice().getYear() + " Color: " + currentPlayer.getCarChoice().getColor());
-        System.out.println("Max speed: " + currentPlayer.getCarChoice().getMaxSpeed());
+        displayString(language.carInfo(currentPlayer));
     }
 }
 

@@ -2,6 +2,7 @@ package com.company.console.region;
 
 import com.company.console.Language;
 import com.company.player.Player;
+import com.company.vehicle.type.Car;
 
 public class English implements Language {
 
@@ -9,7 +10,7 @@ public class English implements Language {
     public String[] startGame() {
         return new String[] {
                 "Welcome to Eri's World Stars Drag Race.\n",
-                "This is a car race, not that race you found in Google!\n"
+                "This is a car race, not THAT race you found in Google!\n"
         };
     }
 
@@ -110,7 +111,7 @@ public class English implements Language {
     @Override
     public String[] outGas(Player currentPlayer) {
         return new String[] {
-                currentPlayer.getName() +  "ran out of gas",
+                currentPlayer.getName() +  " ran out of gas",
                 "These are your options:",
                 "2 - Cruise",
                 "3 - Brake",
@@ -157,5 +158,51 @@ public class English implements Language {
     @Override
     public String safe() {
         return "Congratulations you stopped before hitting the wall";
+    }
+
+    @Override
+    public String[] carInfo(Player currentPlayer) {
+        return new String[] {
+                "The winner's car:",
+                "Car make: " + currentPlayer.getCarChoice().getMake(),
+                "Model: " + currentPlayer.getCarChoice().getModel(),
+                "Year:" + currentPlayer.getCarChoice().getYear() + " Color: " + currentPlayer.getCarChoice().getColor(),
+                "Max speed: " + currentPlayer.getCarChoice().getMaxSpeed()
+        };
+    }
+
+    @Override
+    public String[] acceleMax(Car carChoice) {
+        return new String[] {
+                "You reached your car speed limit of " + carChoice.getMaxSpeed(),
+                "You are cruising now."
+        };
+    }
+
+    @Override
+    public String acceleration(String name, int currentSpeed) {
+        return name + " your speed is " + currentSpeed;
+    }
+
+    @Override
+    public String[] cruise(String name) {
+        return new String[] {
+                name + "is cruising and lost some speed due to drag."
+        };
+    }
+
+    @Override
+    public String cruiseDisplaySpeed(int currentSpeed) {
+        return "Your speed is now: " + currentSpeed;
+    }
+
+    @Override
+    public String stopped() {
+        return "You are stopped";
+    }
+
+    @Override
+    public String brake(String name, int currentSpeed) {
+        return name + " slowed your speed to " + currentSpeed;
     }
 }
