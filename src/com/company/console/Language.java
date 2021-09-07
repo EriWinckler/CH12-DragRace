@@ -56,7 +56,7 @@ public interface Language {
     String acceleration(String name, int currentSpeed);
 
     //cruise
-    String[] cruise(String name);
+    String cruise(String name);
     String cruiseDisplaySpeed(int currentSpeed);
 
     //brake

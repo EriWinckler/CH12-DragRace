@@ -190,10 +190,8 @@ public class English implements Language {
     }
 
     @Override
-    public String[] cruise(String name) {
-        return new String[] {
-                name + "is cruising and lost some speed due to drag."
-        };
+    public String cruise(String name) {
+        return name + "is cruising and lost some speed due to drag.";
     }
 
     @Override

@@ -191,10 +191,8 @@ public class Portuguese implements Language {
     }
 
     @Override
-    public String[] cruise(String name) {
-        return new String[] {
-                name + "está na banguela e perdeu um pouco de velocidade devido ao arrasto."
-        };
+    public String cruise(String name) {
+        return name + "está na banguela e perdeu um pouco de velocidade devido ao arrasto.";
     }
 
     @Override
