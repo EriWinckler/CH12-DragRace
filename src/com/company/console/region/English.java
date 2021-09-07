@@ -123,7 +123,7 @@ public class English implements Language {
     @Override
     public String[] gasInfo(Player currentPlayer) {
         return new String[] {
-                "It's " + currentPlayer.getName() + " turn, " + "currently you have " +
+                "It's " + currentPlayer.getName() + "\'s turn, " + "currently you have " +
                         currentPlayer.getGas() + " gas left in your tank",
                 "These are your options:",
                 "1 - Accelerate",

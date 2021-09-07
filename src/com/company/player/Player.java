@@ -77,18 +77,22 @@ public class Player {
     }
     
     public void cruise(Language language) {
-        //System.out.println(name + " is cruising and lost some speed due to drag.");
-        System.out.println(language.cruise(name));
-        currentSpeed--;
-        //System.out.println("Your speed is now: " + currentSpeed);
-        System.out.println(language.cruiseDisplaySpeed(currentSpeed));
+        if(getCurrentSpeed() >= 0) {
+            System.out.println(language.stopped());
+        } else {
+            //System.out.println(name + " is cruising and lost some speed due to drag.");
+            System.out.println(language.cruise(name));
+            currentSpeed--;
+            //System.out.println("Your speed is now: " + currentSpeed);
+            System.out.println(language.cruiseDisplaySpeed(currentSpeed));
 
-        //update location
-        locationUpdate();
+            //update location
+            locationUpdate();
+        }
     }
     
     public void breakVehicle(Language language) {
-        if(currentSpeed >= 0) {
+        if(getCurrentSpeed() >= 0) {
             System.out.println(language.stopped());
         } else {
             currentSpeed -= carChoice.getBrakingPower();

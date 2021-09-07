@@ -193,6 +193,11 @@ public class Portuguese implements Language {
     }
 
     @Override
+    public String cruiseDisplaySpeed(int currentSpeed) {
+        return "Sua velocidade atual: " + currentSpeed;
+    }
+
+    @Override
     public String stopped() {
         return "Você está parado.";
     }
