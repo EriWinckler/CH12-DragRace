@@ -180,6 +180,11 @@ public class English implements Language {
     }
 
     @Override
+    public String displaySpeed(String name, int currentSpeed) {
+        return name + " your speed is " + currentSpeed;
+    }
+
+    @Override
     public String acceleration(String name, int currentSpeed) {
         return name + " your speed is " + currentSpeed;
     }

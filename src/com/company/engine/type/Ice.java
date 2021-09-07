@@ -9,7 +9,7 @@ public class Ice extends Engine {
     }
 
     //Rate of acceleration varies as per type of engine
-    private int accelerationRate = 5;
+    private int accelerationRate = 15;
 
     @Override
     public int getAccelerationRate() {

@@ -65,7 +65,7 @@ public class Player {
             System.out.println(language.acceleMax(carChoice));
             cruise(language);
         } else {
-            currentSpeed = engineChoice.getAccelerationRate() + currentSpeed;
+            currentSpeed += engineChoice.getAccelerationRate();
             language.acceleration(name, currentSpeed);
             //System.out.println(name + " your speed is " + currentSpeed);
 
@@ -77,9 +77,11 @@ public class Player {
     }
     
     public void cruise(Language language) {
-        if(getCurrentSpeed() >= 0) {
-            System.out.println(language.stopped());
-        } else {
+        if(currentSpeed <= 0) {
+            System.out.println(language.cruiseDisplaySpeed(currentSpeed));
+            currentSpeed = 0;
+            return;
+        }
             //System.out.println(name + " is cruising and lost some speed due to drag.");
             System.out.println(language.cruise(name));
             currentSpeed--;
@@ -88,19 +90,19 @@ public class Player {
 
             //update location
             locationUpdate();
-        }
     }
     
     public void breakVehicle(Language language) {
-        if(getCurrentSpeed() >= 0) {
+        if(currentSpeed <= 0) {
             System.out.println(language.stopped());
-        } else {
+            currentSpeed = 0;
+            return;
+        }
             currentSpeed -= carChoice.getBrakingPower();
             System.out.println(language.brake(name, currentSpeed));
 
             //update location
             locationUpdate();
-        }
     }
 
     public void gasConsume() { gas = gas - 2; }

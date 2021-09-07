@@ -181,6 +181,11 @@ public class Portuguese implements Language {
     }
 
     @Override
+    public String displaySpeed(String name, int currentSpeed) {
+        return name + " sua velocidade é " + currentSpeed;
+    }
+
+    @Override
     public String acceleration(String name, int currentSpeed) {
         return name + " sua velocidade é " + currentSpeed;
     }

@@ -9,7 +9,7 @@ public class Hybrid extends Engine {
     }
 
     //Rate of acceleration varies as per type of engine
-    private int accelerationRate = 7;
+    private int accelerationRate = 10;
 
     @Override
     public int getAccelerationRate() {

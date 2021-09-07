@@ -9,7 +9,7 @@ public class Electric extends Engine {
     }
 
     //Rate of acceleration varies as per type of engine
-    private int accelerationRate = 10;
+    private int accelerationRate = 25;
 
 
     @Override

@@ -208,7 +208,7 @@ public class Race {
         } else {
             String option;
             if(currentPlayer.getGas() == 0) {
-                System.out.println(language.acceleration(currentPlayer.getName(), currentPlayer.getCurrentSpeed()));
+                System.out.println(language.displaySpeed(currentPlayer.getName(), currentPlayer.getCurrentSpeed()));
                 displayString(language.outGas(currentPlayer));
                 option = scan.nextLine();
 

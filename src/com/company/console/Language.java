@@ -52,6 +52,7 @@ public interface Language {
     //playerFile
     //acceleration
     String[] acceleMax(Car carChoice);
+    String displaySpeed(String name, int currentSpeed);
     String acceleration(String name, int currentSpeed);
 
     //cruise
