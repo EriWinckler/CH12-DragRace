@@ -16,6 +16,7 @@ public interface Language {
     String carModel();
     String carYear();
     String carColor();
+    String bonus();
 
     //checkEngineValidInput
     String typeEngine();

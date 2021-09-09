@@ -16,4 +16,8 @@ public class Electric extends Engine {
     public int getAccelerationRate() {
         return accelerationRate;
     }
+
+    public void setAccelerationRate(int accelerationRate) {
+        this.accelerationRate = accelerationRate;
+    }
 }

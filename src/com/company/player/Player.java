@@ -15,6 +15,7 @@ public class Player {
     //initializing Vehicle variables
     private Car carChoice;
     private String engineType;
+    private boolean bonus = false;
     Engine engineChoice = null;
 
 
@@ -36,13 +37,28 @@ public class Player {
     }
 
     public void setCar(String carMake, String carModel, String engineType,
-                       int carYear, String carColor, int carMaxSpeed) {
+                       int carYear, String carColor,
+                       int carMaxSpeed) {
         Car carChoice = new Car(carMake, carModel, carYear,
                 carColor, carMaxSpeed);
         this.carChoice = carChoice;
         this.engineType = engineType;
         setEngine(engineType);
     }
+
+    //Overload
+    public void setCar(String carMake, String carModel, String engineType,
+                       int carYear, String carColor,
+                       int carMaxSpeed, boolean bonus) {
+        Car carChoice = new Car(carMake, carModel, carYear,
+                carColor, carMaxSpeed);
+        this.carChoice = carChoice;
+        this.engineType = engineType;
+        this.bonus = bonus;
+        setEngine(engineType);
+        setAcceleration();
+    }
+
     public Engine setEngine(String engineType) {
         switch(engineType) {
             case "Electric":
@@ -58,6 +74,11 @@ public class Player {
                 break;
         }
         return engineChoice;
+    }
+
+    public void setAcceleration() {
+        engineChoice.setAccelerationRate(45);
+        carChoice.setBrakingPower(35);
     }
     
     public void acceleration(Language language, Car carChoice) {

@@ -63,6 +63,9 @@ public class English implements Language {
     }
 
     @Override
+    public String bonus() { return "Surprise! Hidden bonus car unlocked!"; }
+
+    @Override
     public String typeEngine() {
         return "What's the car Engine type? (Electric, Hybrid, Ice)";
     }

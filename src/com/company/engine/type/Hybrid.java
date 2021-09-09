@@ -15,4 +15,8 @@ public class Hybrid extends Engine {
     public int getAccelerationRate() {
         return accelerationRate;
     }
+
+    public void setAccelerationRate(int accelerationRate) {
+        this.accelerationRate = accelerationRate;
+    }
 }

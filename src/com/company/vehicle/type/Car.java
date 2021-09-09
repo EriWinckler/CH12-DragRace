@@ -13,6 +13,10 @@ public class Car extends Vehicle {
     }
     
     public int getBrakingPower() { return brakingPower; }
+
+    public void setBrakingPower(int brakingPower) {
+        this.brakingPower = brakingPower;
+    }
     
     public int getMaxSpeed() { return maxSpeed; }
 }

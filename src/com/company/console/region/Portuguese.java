@@ -65,6 +65,10 @@ public class Portuguese implements Language {
     }
 
     @Override
+    public String bonus() { return "Surpresa! Carro bonus escondido " +
+            "destravado!"; }
+
+    @Override
     public String typeEngine() {
         return "Qual é o tipo do motor? (Electric, Hybrid, Ice)";
     }

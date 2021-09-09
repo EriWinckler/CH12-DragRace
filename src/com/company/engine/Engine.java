@@ -9,7 +9,6 @@ public abstract class Engine {
         this.isOn = isOn;
     }
 
-
     public String setStartStop() {
         if(isOn) {
             System.out.println("Turning engine off");
@@ -24,4 +23,6 @@ public abstract class Engine {
     public abstract int  getAccelerationRate();
 
     public boolean getIsOn() { return isOn; }
+
+    public abstract void setAccelerationRate(int accelerationRate);
 }

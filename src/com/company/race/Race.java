@@ -74,7 +74,7 @@ public class Race {
         String kamikaze = scan.nextLine().toLowerCase();
         setKamikaze(kamikaze);
 
-        language.start();
+        System.out.println(language.start());
 
         while (gameOn) {
             drag();
@@ -118,8 +118,15 @@ public class Race {
         int carMaxSpeed = checkMaxSpeed();
 
         //creating new player
+        if(carModel.toLowerCase() == "prius" && carColor.toLowerCase() == "red" && checkedEngineType == "Hybrid") {
+            System.out.println(language.bonus());
+            newPlayer.setCar(carMake, carModel, checkedEngineType, carYear,
+                    carColor, carMaxSpeed, true);
+            return newPlayer;
+        }
+
         newPlayer.setCar(carMake, carModel, checkedEngineType, carYear,
-                carColor, carMaxSpeed);
+                carColor, carMaxSpeed, false);
 
         return newPlayer;
     }
