@@ -15,6 +15,7 @@ public class Player {
     //initializing Vehicle variables
     private Car carChoice;
     private String engineType;
+    private Language language;
     private boolean bonus = false;
     Engine engineChoice = null;
 
@@ -44,19 +45,7 @@ public class Player {
         this.carChoice = carChoice;
         this.engineType = engineType;
         setEngine(engineType);
-    }
-
-    //Overload
-    public void setCar(String carMake, String carModel, String engineType,
-                       int carYear, String carColor,
-                       int carMaxSpeed, boolean bonus) {
-        Car carChoice = new Car(carMake, carModel, carYear,
-                carColor, carMaxSpeed);
-        this.carChoice = carChoice;
-        this.engineType = engineType;
-        this.bonus = bonus;
-        setEngine(engineType);
-        setAcceleration();
+        setAcceleration(carModel, carColor);
     }
 
     public Engine setEngine(String engineType) {
@@ -76,9 +65,12 @@ public class Player {
         return engineChoice;
     }
 
-    public void setAcceleration() {
-        engineChoice.setAccelerationRate(45);
-        carChoice.setBrakingPower(35);
+    public void setAcceleration(String carModel, String carColor) {
+        if(carModel.equals("prius") && carColor.equals("red")) {
+            engineChoice.setAccelerationRate(45);
+            carChoice.setBrakingPower(35);
+            System.out.println(language.bonus());
+        }
     }
     
     public void acceleration(Language language, Car carChoice) {
@@ -88,7 +80,6 @@ public class Player {
         } else {
             currentSpeed += engineChoice.getAccelerationRate();
             language.acceleration(name, currentSpeed);
-            //System.out.println(name + " your speed is " + currentSpeed);
 
             //update gas
             gasConsume();
@@ -151,5 +142,7 @@ public class Player {
     public int getCurrentSpeed() { return currentSpeed; }
 
     public int getGas() { return gas; }
+
+    public Language setLanguage(Language lang) { return this.language = lang; }
 
 }

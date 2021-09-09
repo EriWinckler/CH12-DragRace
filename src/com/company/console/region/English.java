@@ -10,7 +10,8 @@ public class English implements Language {
     public String[] startGame() {
         return new String[] {
                 "Welcome to Eri's World Stars Drag Race.\n",
-                "This is a car race, not THAT race you found in Google!\n"
+                "This is a car race, not THAT race you found in Google!\n",
+                "Lets see if you can you find the bonus car!\n\n"
         };
     }
 
@@ -67,7 +68,7 @@ public class English implements Language {
 
     @Override
     public String typeEngine() {
-        return "What's the car Engine type? (Electric, Hybrid, Ice)";
+        return "What's the car Engine type? Select number 1 - Electric, 2 - Hybrid, 3 - Ice";
     }
 
     @Override

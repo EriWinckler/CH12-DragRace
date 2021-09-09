@@ -9,10 +9,9 @@ public class Portuguese implements Language {
     @Override
     public String[] startGame() {
         return new String[] {
-
-
                 "Bem vindo a corrida de drag do Eri.\n",
-                "Isso é uma corrida de carros, não aquilo que você achou no Google!\n"
+                "Isso é uma corrida de carros, não aquilo que você achou no Google!\n",
+                "\nSera que você consegue encontrar o carro bonus?\n"
         };
     }
 
@@ -70,7 +69,7 @@ public class Portuguese implements Language {
 
     @Override
     public String typeEngine() {
-        return "Qual é o tipo do motor? (Electric, Hybrid, Ice)";
+        return "Qual é o tipo do motor? Selecione o número 1- Eletrico 2 - Hibrido 3 - Combustão)";
     }
 
     @Override

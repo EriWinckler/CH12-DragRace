@@ -67,8 +67,6 @@ public class Race {
 
         }
 
-
-
         //checker for Kamikaze mode
         System.out.println(language.kamikaze());
         String kamikaze = scan.nextLine().toLowerCase();
@@ -118,15 +116,9 @@ public class Race {
         int carMaxSpeed = checkMaxSpeed();
 
         //creating new player
-        if(carModel.toLowerCase() == "prius" && carColor.toLowerCase() == "red" && checkedEngineType == "Hybrid") {
-            System.out.println(language.bonus());
-            newPlayer.setCar(carMake, carModel, checkedEngineType, carYear,
-                    carColor, carMaxSpeed, true);
-            return newPlayer;
-        }
-
+        newPlayer.setLanguage(language);
         newPlayer.setCar(carMake, carModel, checkedEngineType, carYear,
-                carColor, carMaxSpeed, false);
+                carColor, carMaxSpeed);
 
         return newPlayer;
     }
@@ -137,15 +129,15 @@ public class Race {
         String engineType = scan.nextLine().toLowerCase();
 
         switch (engineType) {
-            case "electric":
+            case "1":
                 checkedEngineType = "Electric";
                 break;
 
-            case "hybrid":
+            case "2":
                 checkedEngineType = "Hybrid";
                 break;
 
-            case "ice":
+            case "3":
                 checkedEngineType = "Ice";
                 break;
 
