@@ -94,10 +94,9 @@ public class Player {
             currentSpeed = 0;
             return;
         }
-            //System.out.println(name + " is cruising and lost some speed due to drag.");
+
             System.out.println(language.cruise(name));
             currentSpeed--;
-            //System.out.println("Your speed is now: " + currentSpeed);
             System.out.println(language.cruiseDisplaySpeed(currentSpeed));
 
             //update location
@@ -144,5 +143,4 @@ public class Player {
     public int getGas() { return gas; }
 
     public Language setLanguage(Language lang) { return this.language = lang; }
-
 }
