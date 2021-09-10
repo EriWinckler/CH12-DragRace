@@ -66,20 +66,20 @@ public class Player {
     }
 
     public void setAcceleration(String carModel, String carColor) {
-        if(carModel.equals("prius") && carColor.equals("red")) {
+        if(carModel.toLowerCase().equals("prius") && carColor.toLowerCase().equals("red")) {
             engineChoice.setAccelerationRate(45);
             carChoice.setBrakingPower(35);
-            System.out.println(language.bonus());
+            System.out.println(language.BONUS());
         }
     }
     
     public void acceleration(Language language, Car carChoice) {
         if(currentSpeed >= carChoice.getMaxSpeed()) {
-            System.out.println(language.acceleMax(carChoice));
+            System.out.println(language.ACCE_MAX(carChoice));
             cruise(language);
         } else {
             currentSpeed += engineChoice.getAccelerationRate();
-            language.acceleration(name, currentSpeed);
+            language.ACCELERATION(name, currentSpeed);
 
             //update gas
             gasConsume();
@@ -90,14 +90,14 @@ public class Player {
     
     public void cruise(Language language) {
         if(currentSpeed <= 0) {
-            System.out.println(language.cruiseDisplaySpeed(currentSpeed));
+            System.out.println(language.CRUISE_DISPLAY_SPEED(currentSpeed));
             currentSpeed = 0;
             return;
         }
 
-            System.out.println(language.cruise(name));
+            System.out.println(language.CRUISE(name));
             currentSpeed--;
-            System.out.println(language.cruiseDisplaySpeed(currentSpeed));
+            System.out.println(language.CRUISE_DISPLAY_SPEED(currentSpeed));
 
             //update location
             locationUpdate();
@@ -105,12 +105,12 @@ public class Player {
     
     public void breakVehicle(Language language) {
         if(currentSpeed <= 0) {
-            System.out.println(language.stopped());
+            System.out.println(language.STOPPED());
             currentSpeed = 0;
             return;
         }
             currentSpeed -= carChoice.getBrakingPower();
-            System.out.println(language.brake(name, currentSpeed));
+            System.out.println(language.BRAKE(name, currentSpeed));
 
             //update location
             locationUpdate();

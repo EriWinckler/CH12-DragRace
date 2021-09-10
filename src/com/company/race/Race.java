@@ -15,7 +15,6 @@ public class Race {
 
     private Language language;
 
-
     Player currentPlayer = new Player();
 
     //Initializing players array
@@ -28,11 +27,9 @@ public class Race {
     //pass counter
     private int pass = 0;
 
-
-    private int wallOfDoom, laneSize, carYear, maxSpeed;
+    private int wallOfDoom, carYear, maxSpeed;
 
     private String checkedEngineType = "";
-
 
     private void setLang() {
         System.out.println("Welcome, what language would you like? || Bem vindo, que lingua você gostaria?");
@@ -46,17 +43,17 @@ public class Race {
 
     public void startGame() {
         setLang();
-        displayString(language.startGame());
+        displayString(language.STARTGAME());
 
-        System.out.println(language.playerOne());
+        System.out.println(language.PLAYER_ONE());
         String name = (scan.nextLine());
         players.add(createPlayer(name));
 
-        System.out.println(language.playerTwo());
+        System.out.println(language.PLAYER_TWO());
         name = (scan.nextLine());
         players.add(createPlayer(name));
 
-        System.out.println(language.laneSize());
+        System.out.println(language.LANE_SIZE());
         String input = (scan.nextLine());
 
         try {
@@ -68,11 +65,11 @@ public class Race {
         }
 
         //checker for Kamikaze mode
-        System.out.println(language.kamikaze());
+        System.out.println(language.KAMIKAZE());
         String kamikaze = scan.nextLine().toLowerCase();
         setKamikaze(kamikaze);
 
-        System.out.println(language.start());
+        System.out.println(language.START());
 
         while (gameOn) {
             drag();
@@ -91,13 +88,13 @@ public class Race {
 
         newPlayer.setName(name);
 
-        displayString(language.carMake());
+        displayString(language.CAR_MAKE());
         String carMake = scan.nextLine();
 
-        System.out.println(language.carModel());
+        System.out.println(language.CAR_MODEL());
         String carModel = scan.nextLine();
 
-        System.out.println(language.carYear());
+        System.out.println(language.CAR_YEAR());
         String input = (scan.nextLine());
 
         try {
@@ -109,7 +106,7 @@ public class Race {
         //calling verifier for valid input for the engine type
         checkEngineValidInput();
 
-        System.out.println(language.carColor());
+        System.out.println(language.CAR_COLOR());
         String carColor = scan.nextLine();
 
        //calling checker for valid max speed value
@@ -125,7 +122,7 @@ public class Race {
 
     //checker valid input for engine type
     public void checkEngineValidInput() {
-        System.out.println(language.typeEngine());
+        System.out.println(language.TYPE_ENGINE());
         String engineType = scan.nextLine().toLowerCase();
 
         switch (engineType) {
@@ -142,7 +139,7 @@ public class Race {
                 break;
 
             default:
-                System.out.println(language.invalidChoice());
+                System.out.println(language.INVALID_CHOICE());
                 checkEngineValidInput();
                 break;
         }
@@ -150,7 +147,7 @@ public class Race {
 
     //checker for valid max speed input
     public int checkMaxSpeed() {
-        System.out.println(language.carMaxSpeed());
+        System.out.println(language.CAR_MAX_SPEED());
         String input = scan.nextLine();
         try {
             maxSpeed = Integer.parseInt(input);
@@ -159,7 +156,7 @@ public class Race {
         }
 
         if(maxSpeed > 300) {
-            displayString(language.invalidMax());
+            displayString(language.INVALID_MAX());
             return maxSpeed = 300;
         }
         return maxSpeed;
@@ -169,7 +166,7 @@ public class Race {
         switch (kamikaze) {
             case ("yes") -> {
                 kamikazeWall = true;
-                System.out.println(language.kamikazeOn());
+                System.out.println(language.KAMIKAZE_ON());
             }
             default -> kamikazeWall = false;
         }
@@ -184,7 +181,7 @@ public class Race {
                 options();
                 currentPlayer.gasRefuel();
                 if (currentPlayer.getLocation() >= lane.getLaneSize()) {
-                    System.out.println(language.win(currentPlayer, pass));
+                    System.out.println(language.WIN(currentPlayer, pass));
                     gameOn = false;
                     if (kamikazeWall) {
                         wall(currentPlayer, lane, true);
@@ -200,29 +197,28 @@ public class Race {
     //Player input method
     public void options() {
         if(!currentPlayer.getEngineStatus()) {
-            System.out.println(language.engineOn(currentPlayer));
-            System.out.println(language.turnOn());
+            System.out.println(language.ENGINE_ON(currentPlayer));
+            System.out.println(language.TURN_ON());
             String anyKey = scan.nextLine();
             currentPlayer.setEngineOnOff();
         } else {
             String option;
             if(currentPlayer.getGas() == 0) {
-                System.out.println(language.displaySpeed(currentPlayer.getName(), currentPlayer.getCurrentSpeed()));
-                displayString(language.outGas(currentPlayer));
+                System.out.println(language.DISPLAY_SPEED(currentPlayer.getName(), currentPlayer.getCurrentSpeed()));
+                displayString(language.OUT_GAS(currentPlayer));
                 option = scan.nextLine();
 
                 switch (option) {
                     case "2" -> currentPlayer.cruise(language);
                     case "3" -> currentPlayer.breakVehicle(language);
                     default -> {
-                        System.out.println(language.invalidChoice());
+                        System.out.println(language.INVALID_CHOICE());
                         options();
                     }
                 }
-
             } else {
-                System.out.println(language.acceleration(currentPlayer.getName(), currentPlayer.getCurrentSpeed()));
-                displayString(language.gasInfo(currentPlayer));
+                System.out.println(language.ACCELERATION(currentPlayer.getName(), currentPlayer.getCurrentSpeed()));
+                displayString(language.GAS_INFO(currentPlayer));
                 option = scan.nextLine();
 
                 switch (option) {
@@ -239,11 +235,12 @@ public class Race {
                         break;
 
                     default:
-                        System.out.println(language.invalidChoice());
+                        System.out.println(language.INVALID_CHOICE());
                         options();
 
                 }
-
+                System.out.println(language.LOCATION(currentPlayer,
+                        lane.getLaneSize()));
             }
         }
     }
@@ -252,19 +249,19 @@ public class Race {
         wallOfDoom = (int) (lane.getLaneSize() * 0.4);
         currentPlayer.resetLocation();
 
-        displayString(language.wallIntro(wallOfDoom));
+        displayString(language.WALL_INTRO(wallOfDoom));
         String option = scan.nextLine();
 
         while (kamikaze) {
-            displayString(language.wallInfo(currentPlayer, wallOfDoom));
+            displayString(language.WALL_INFO(currentPlayer, wallOfDoom));
 
             if (currentPlayer.getLocation() >= wallOfDoom) {
-                System.out.println(language.hitWall());
+                System.out.println(language.HIT_WALL());
                 kamikaze = false;
                 getCarInfo();
                 return;
-            } else if (currentPlayer.getCurrentSpeed() == 0) {
-                System.out.println(language.safe());
+            } else if (currentPlayer.getCurrentSpeed() <= 0) {
+                System.out.println(language.SAFE());
                 kamikaze = false;
                 getCarInfo();
                 return;
@@ -275,7 +272,7 @@ public class Race {
     }
 
     public void getCarInfo() {
-        displayString(language.carInfo(currentPlayer));
+        displayString(language.CAR_INFO(currentPlayer));
     }
 }
 

@@ -4,64 +4,65 @@ import com.company.player.Player;
 import com.company.vehicle.type.Car;
 
 public interface Language {
-    String[] startGame();
-    String playerOne();
-    String playerTwo();
-    String laneSize();
-    String kamikaze();
-    String start();
+    String[] STARTGAME();
+    String PLAYER_ONE();
+    String PLAYER_TWO();
+    String LANE_SIZE();
+    String KAMIKAZE();
+    String START();
 
     //createPlayer
-    String [] carMake();
-    String carModel();
-    String carYear();
-    String carColor();
-    String bonus();
+    String [] CAR_MAKE();
+    String CAR_MODEL();
+    String CAR_YEAR();
+    String CAR_COLOR();
+    String BONUS();
 
     //checkEngineValidInput
-    String typeEngine();
-    String invalidChoice();
+    String TYPE_ENGINE();
+    String INVALID_CHOICE();
 
     //checkMaxSpeed
-    String carMaxSpeed();
-    String [] invalidMax();
+    String CAR_MAX_SPEED();
+    String [] INVALID_MAX();
 
     //setKamkikaze
-    String kamikazeOn();
+    String KAMIKAZE_ON();
 
     //drag
-    String win(Player currentPlayer, int pass);
+    String WIN(Player currentPlayer, int pass);
 
 
     //options
-    String engineOn(Player currentPlayer);
-    String turnOn();
+    String ENGINE_ON(Player currentPlayer);
+    String TURN_ON();
+    String LOCATION(Player currentPlayer, int laneSize);
 
-    String[] outGas(Player currentPlayer);
-    String[] gasInfo(Player currentPlayer);
+    String[] OUT_GAS(Player currentPlayer);
+    String[] GAS_INFO(Player currentPlayer);
 
 
     //wall
-    String[] wallIntro(int wallOfDoom);
-    String[] wallInfo(Player currentPlayer, int wallOfDoom);
-    String hitWall();
-    String safe();
+    String[] WALL_INTRO(int wallOfDoom);
+    String[] WALL_INFO(Player currentPlayer, int wallOfDoom);
+    String HIT_WALL();
+    String SAFE();
 
     //displayCar
-    String[] carInfo(Player currentPlayer);
+    String[] CAR_INFO(Player currentPlayer);
 
     //playerFile
     //acceleration
-    String[] acceleMax(Car carChoice);
-    String displaySpeed(String name, int currentSpeed);
-    String acceleration(String name, int currentSpeed);
+    String[] ACCE_MAX(Car carChoice);
+    String DISPLAY_SPEED(String name, int currentSpeed);
+    String ACCELERATION(String name, int currentSpeed);
 
     //cruise
-    String cruise(String name);
-    String cruiseDisplaySpeed(int currentSpeed);
+    String CRUISE(String name);
+    String CRUISE_DISPLAY_SPEED(int currentSpeed);
 
     //brake
-    String stopped();
-    String brake(String name, int currentSpeed);
+    String STOPPED();
+    String BRAKE(String name, int currentSpeed);
 
 }
